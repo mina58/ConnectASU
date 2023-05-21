@@ -22,4 +22,16 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        return this.email.equals(other.email) && this.password.equals(other.password) && this.name.equals(other.name);
+    }
 }

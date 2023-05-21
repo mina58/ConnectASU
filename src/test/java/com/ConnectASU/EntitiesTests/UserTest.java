@@ -1,4 +1,4 @@
-package com.ConnectASU.entitiesTests;
+package com.ConnectASU.EntitiesTests;
 
 
 import com.ConnectASU.entities.User;
