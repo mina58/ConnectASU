@@ -7,4 +7,5 @@ public class DatabaseTableNames {
     public static final String GROUP_TABLE = "Group";
     public static final String FOLLOW_TABLE = "Follow";
     public static final String JOINS_TABLE = "Joins";
+    public static final String LIKES_TABLE = "Likes";
 }

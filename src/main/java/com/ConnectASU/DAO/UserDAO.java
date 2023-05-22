@@ -1,4 +1,4 @@
-package com.ConnectASU.DAOTests;
+package com.ConnectASU.DAO;
 
 import com.ConnectASU.DBUtilities.DBConnectionManager;
 import com.ConnectASU.entities.User;
@@ -19,7 +19,6 @@ public class UserDAO {
 
         try {
             connection = DBConnectionManager.getConnection();
-
             String sql = "INSERT INTO " + USER_TABLE + " (Email, Name, Password) VALUES (?, ?, ?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, email);
@@ -29,7 +28,8 @@ public class UserDAO {
         } catch (SQLException e) {
             throw new SQLException("Failed to add user", e);
         } finally {
-            if (statement != null) statement.close();
+            if (statement != null)
+                statement.close();
             DBConnectionManager.closeConnection(connection);
         }
         return rowsAffected == 1;
@@ -55,7 +55,9 @@ public class UserDAO {
         } catch (SQLException e) {
             throw new SQLException("Failed to retrieve user by mail.", e);
         } finally {
-            if (statement != null) statement.close();
+            if (statement != null) {
+                statement.close();
+            }
             if (resultSet != null) {
                 resultSet.close();
             }

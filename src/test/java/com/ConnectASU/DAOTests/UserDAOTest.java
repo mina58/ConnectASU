@@ -1,5 +1,6 @@
 package com.ConnectASU.DAOTests;
 
+import com.ConnectASU.DAO.UserDAO;
 import com.ConnectASU.entities.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -254,5 +255,4 @@ class UserDAOTest {
             }
         }
     }
-
 }
