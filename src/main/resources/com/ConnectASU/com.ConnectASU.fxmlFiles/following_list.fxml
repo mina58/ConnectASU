@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="738.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="40.0" prefWidth="739.0" style="-fx-background-color: #40826D;">
+         <children>
+            <Label alignment="CENTER" layoutY="12.0" prefHeight="23.0" prefWidth="725.0" text="Person_name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <SplitPane dividerPositions="0.9590592334494773" layoutX="23.0" layoutY="171.0" prefHeight="403.0" prefWidth="693.0" style="-fx-background-color: #B2BEB5;">
+         <items>
+            <AnchorPane fx:id="post_feed" blendMode="SCREEN" minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="547.0" style="-fx-background-color: #B2BEB5; -fx-background-color: #B2BEB5;">
+               <children>
+                  <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="66.0" prefWidth="74.0">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="2.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="145.0" layoutY="34.0" prefHeight="27.0" prefWidth="201.0" text="person_name" />
+               </children></AnchorPane>
+            <AnchorPane fx:id="scroll_profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <ScrollBar layoutX="-1.0" orientation="VERTICAL" prefHeight="407.0" prefWidth="28.0" style="-fx-background-color: #B2BEB5;" />
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+      <Label layoutX="23.0" layoutY="125.0" prefHeight="27.0" prefWidth="98.0" text="Following:">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
