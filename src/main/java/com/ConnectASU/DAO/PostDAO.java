@@ -1,6 +1,6 @@
 package com.ConnectASU.DAO;
 
-import com.ConnectASU.DBUtilities.DBConnectionManager;
+import com.ConnectASU.DAO.DBUtilities.DBConnectionManager;
 import com.ConnectASU.entities.Post;
 
 import java.sql.Connection;
@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.ConnectASU.DBUtilities.DatabaseTableNames.LIKES_TABLE;
-import static com.ConnectASU.DBUtilities.DatabaseTableNames.POST_TABLE;
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.LIKES_TABLE;
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.POST_TABLE;
 
 public class PostDAO {
     public boolean createPost(String content, String userEmail, int groupId) throws SQLException {

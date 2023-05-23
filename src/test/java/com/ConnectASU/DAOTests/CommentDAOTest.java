@@ -3,7 +3,7 @@ package com.ConnectASU.DAOTests;
 import com.ConnectASU.DAO.CommentDAO;
 import com.ConnectASU.DAO.PostDAO;
 import com.ConnectASU.DAO.UserDAO;
-import com.ConnectASU.DBUtilities.DBSequenceResetter;
+import com.ConnectASU.DAO.DBUtilities.DBSequenceResetter;
 import com.ConnectASU.entities.Comment;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.ConnectASU.DBUtilities.DatabaseTableNames.COMMENT_TABLE;
-import static com.ConnectASU.DBUtilities.DatabaseTableNames.POST_TABLE;
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.COMMENT_TABLE;
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.POST_TABLE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CommentDAOTest {

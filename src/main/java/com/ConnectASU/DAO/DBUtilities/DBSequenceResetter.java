@@ -1,4 +1,4 @@
-package com.ConnectASU.DBUtilities;
+package com.ConnectASU.DAO.DBUtilities;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

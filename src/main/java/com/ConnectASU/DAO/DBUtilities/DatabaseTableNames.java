@@ -1,4 +1,4 @@
-package com.ConnectASU.DBUtilities;
+package com.ConnectASU.DAO.DBUtilities;
 
 public class DatabaseTableNames {
     public static final String USER_TABLE = "User";

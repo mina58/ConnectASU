@@ -1,6 +1,6 @@
 package com.ConnectASU.DAO;
 
-import com.ConnectASU.DBUtilities.DBConnectionManager;
+import com.ConnectASU.DAO.DBUtilities.DBConnectionManager;
 import com.ConnectASU.entities.Group;
 import com.ConnectASU.entities.User;
 
@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.ConnectASU.DBUtilities.DatabaseTableNames.*;
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.*;
 
 public class GroupDAO {
     public boolean createGroup(String groupName, String adminEmail) throws SQLException {

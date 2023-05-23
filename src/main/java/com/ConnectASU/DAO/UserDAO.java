@@ -1,6 +1,6 @@
 package com.ConnectASU.DAO;
 
-import com.ConnectASU.DBUtilities.DBConnectionManager;
+import com.ConnectASU.DAO.DBUtilities.DBConnectionManager;
 import com.ConnectASU.entities.User;
 
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.ConnectASU.DBUtilities.DatabaseTableNames.USER_TABLE;
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.USER_TABLE;
 
 public class UserDAO {
     public boolean createUser(String email, String name, String password) throws SQLException {

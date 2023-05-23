@@ -1,6 +1,6 @@
 package com.ConnectASU.DAO;
 
-import com.ConnectASU.DBUtilities.DBConnectionManager;
+import com.ConnectASU.DAO.DBUtilities.DBConnectionManager;
 import com.ConnectASU.entities.Comment;
 
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.ConnectASU.DBUtilities.DatabaseTableNames.COMMENT_TABLE;
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.COMMENT_TABLE;
 
 public class CommentDAO {
     public boolean createComment(String commentContent, int postID, String authorEmail) throws SQLException {
