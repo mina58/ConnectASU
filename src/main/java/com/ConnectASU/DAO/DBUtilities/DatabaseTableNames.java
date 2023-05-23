@@ -1,4 +1,4 @@
-package com.ConnectASU.DBUtilities;
+package com.ConnectASU.DAO.DBUtilities;
 
 public class DatabaseTableNames {
     public static final String USER_TABLE = "User";
@@ -7,4 +7,5 @@ public class DatabaseTableNames {
     public static final String GROUP_TABLE = "Group";
     public static final String FOLLOW_TABLE = "Follow";
     public static final String JOINS_TABLE = "Joins";
+    public static final String LIKES_TABLE = "Likes";
 }

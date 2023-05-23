@@ -16,4 +16,18 @@ public class Group {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Group other = (Group) obj;
+        return this.id == other.id && this.name.equals(other.name);
+    }
 }
