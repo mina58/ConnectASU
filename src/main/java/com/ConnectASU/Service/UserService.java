@@ -52,7 +52,8 @@ public class UserService {
     public void deleteAccount(User user) {
         try {
             UserDAO userDAO = new UserDAO();
-            userDAO.deleteUserByEmail(user.getEmail());
+            if (user != null)
+                userDAO.deleteUserByEmail(user.getEmail());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,7 +63,7 @@ public class UserService {
         try {
             UserDAO userDAO = new UserDAO();
             User user = userDAO.getUserByEmail(email);
-            if (user.getPassword().equals(password)) {
+            if (user != null && user.getPassword().equals(password)) {
                 return user;
             } else {
                 throw new InvalidLoginException();
@@ -75,6 +76,8 @@ public class UserService {
 
     public void followUser(User follower, User followee) throws FailedFollowException {
         try {
+            if (follower == null || followee == null)
+                throw new FailedFollowException();
             UserDAO userDAO = new UserDAO();
             userDAO.followUser(follower.getEmail(), followee.getEmail());
         } catch (SQLException e) {
@@ -84,6 +87,8 @@ public class UserService {
 
     public void unfollowUser(User follower, User followee) throws FailedUnfollowException {
         try {
+            if (follower == null || followee == null)
+                throw new FailedUnfollowException();
             UserDAO userDAO = new UserDAO();
             if (!userDAO.unfollowUser(follower.getEmail(), followee.getEmail()))
                 throw new FailedUnfollowException();

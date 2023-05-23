@@ -58,7 +58,7 @@ class GroupDAOTest {
     @Test
     public void testCreateGroupValid() {
         try {
-            assertTrue(groupDAO.createGroup(testGroupName1, testUserEmail1));
+            assertNotNull(groupDAO.createGroup(testGroupName1, testUserEmail1));
         } catch (SQLException e) {
             fail("Failed to create the group, method thrown an exception: " + e.getMessage());
         }

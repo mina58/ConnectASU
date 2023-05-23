@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.*;
 
 public class GroupDAO {
-    public boolean createGroup(String groupName, String adminEmail) throws SQLException {
+    public Group createGroup(String groupName, String adminEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
-        int rowAffected = 0;
+        ResultSet generatedKeys = null;
+        Group group = null;
 
         try {
             connection = DBConnectionManager.getConnection();
@@ -24,16 +25,23 @@ public class GroupDAO {
             statement = connection.prepareStatement(sql);
             statement.setString(1, groupName);
             statement.setString(2, adminEmail);
-            rowAffected = statement.executeUpdate();
+            statement.executeUpdate();
+            generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int groupId = generatedKeys.getInt(1);
+                group = new Group(groupId, groupName);
+            }
         } catch (SQLException e) {
             throw new SQLException("Failed to add group", e);
         } finally {
             if (statement != null)
                 statement.close();
+            if (generatedKeys != null)
+                generatedKeys.close();
             DBConnectionManager.closeConnection(connection);
         }
 
-        return rowAffected == 1;
+        return group;
     }
 
     public Group getGroupByID(int groupId) throws SQLException {

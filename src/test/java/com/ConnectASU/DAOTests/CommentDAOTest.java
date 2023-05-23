@@ -61,7 +61,7 @@ class CommentDAOTest {
     @Test
     public void testCreateCommentValid() {
         try {
-            assertTrue(commentDAO.createComment(testCommentContent1, testPostID1, testAuthor1));
+            assertNotNull(commentDAO.createComment(testCommentContent1, testPostID1, testAuthor1));
         } catch (SQLException e) {
             fail("Failed to create the comment, method thrown an exception: ", e);
         }

@@ -13,10 +13,11 @@ import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.LIKES_TABLE;
 import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.POST_TABLE;
 
 public class PostDAO {
-    public boolean createPost(String content, String userEmail, int groupId) throws SQLException {
+    public Post createPost(String content, String userEmail, int groupId) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
-        int rowsAffected = 0;
+        ResultSet generatedKeys = null;
+        Post post = null;
 
         try {
             connection = DBConnectionManager.getConnection();
@@ -29,7 +30,12 @@ public class PostDAO {
             } else {
                 statement.setInt(3, groupId);
             }
-            rowsAffected = statement.executeUpdate();
+            statement.executeUpdate();
+            generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int postId = generatedKeys.getInt(1);
+                post = new Post(postId, content, userEmail);
+            }
         } catch (SQLException e) {
             throw new SQLException("Failed to create post", e);
         } finally {
@@ -38,7 +44,7 @@ public class PostDAO {
             }
             DBConnectionManager.closeConnection(connection);
         }
-        return rowsAffected == 1;
+        return post;
     }
 
     public boolean deletePostByID(int postId) throws SQLException {

@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.COMMENT_TABLE;
 
 public class CommentDAO {
-    public boolean createComment(String commentContent, int postID, String authorEmail) throws SQLException {
+    public Comment createComment(String commentContent, int postID, String authorEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
-        int rowsAffected = 0;
+        Comment comment = null;
+        ResultSet generatedKeys = null;
 
         try {
             connection = DBConnectionManager.getConnection();
@@ -24,17 +25,25 @@ public class CommentDAO {
             statement.setString(1, commentContent);
             statement.setInt(2, postID);
             statement.setString(3, authorEmail);
-            rowsAffected = statement.executeUpdate();
+            statement.executeUpdate();
+            generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int commentID = generatedKeys.getInt(1);
+                comment = new Comment(commentID, commentContent, authorEmail);
+            }
         } catch (SQLException e) {
             throw new SQLException("Failed to create comment", e);
         } finally {
             if (statement != null) {
                 statement.close();
             }
+            if (generatedKeys != null) {
+                generatedKeys.close();
+            }
             DBConnectionManager.closeConnection(connection);
         }
 
-        return rowsAffected == 1;
+        return comment;
     }
 
     public Comment getCommentByID(int commentID) throws SQLException {

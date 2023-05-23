@@ -62,7 +62,7 @@ class PostDAOTest {
     @Test
     public void testCreatePostValid() {
         try {
-            assertTrue(postDAO.createPost(testContent1, testAuthor1, 0));
+            assertNotNull(postDAO.createPost(testContent1, testAuthor1, 0));
         } catch (SQLException e) {
             fail("Failed to insert the post, method thrown an exception: " + e.getMessage());
         }
