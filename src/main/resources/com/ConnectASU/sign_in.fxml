@@ -15,13 +15,13 @@
          <children>
             <ImageView fitHeight="400.0" fitWidth="323.0" preserveRatio="true">
                <image>
-                  <Image url="WhatsApp Image 2023-05-21 at 8.35.07 PM.jpeg" />
+                  <Image url="@Logo.jpeg" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <TextField layoutX="436.0" layoutY="108.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
-      <Label layoutX="340.0" layoutY="111.0" text="Username">
+      <TextField layoutX="436.0" layoutY="147.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
+      <Label layoutX="342.0" layoutY="150.0" text="Username">
          <font>
             <Font name="Arial" size="17.0" />
          </font>
@@ -33,6 +33,12 @@
       </Label>
       <Button layoutX="382.0" layoutY="340.0" mnemonicParsing="false" style="-fx-background-color: #C0C0C0; -fx-text-fill: #062028; -fx-background-color: #E5E4E2;" text="Sign Up" textFill="#062028" />
       <Button layoutX="511.0" layoutY="340.0" mnemonicParsing="false" style="-fx-background-color: #c0c0c0; -fx-text-fill: #062028; -fx-background-color: #E5E4E2;" text="Log In" />
-      <PasswordField layoutX="437.0" layoutY="212.0" style="-fx-background-color: #E5E4E2;" />
+      <Label layoutX="342.0" layoutY="82.0" text="Name">
+         <font>
+            <Font name="Arial" size="17.0" />
+         </font>
+      </Label>
+      <TextField layoutX="436.0" layoutY="79.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
+      <PasswordField layoutX="436.0" layoutY="212.0" style="-fx-background-color: #E5E4E2;" />
    </children>
 </AnchorPane>

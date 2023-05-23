@@ -37,7 +37,7 @@
       </Button>
       <ImageView fitHeight="117.0" fitWidth="116.0" layoutX="26.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../var/folders/z3/17lsk1sx6kxfln19hhbsj45m0000gn/T/TemporaryItems/NSIRD_screencaptureui_eMX1B5/Screenshot%202023-05-18%20at%209.14.11%20PM.png" />
+            <Image url="Profile.jpeg" />
          </image>
       </ImageView>
    </children>

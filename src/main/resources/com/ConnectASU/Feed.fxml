@@ -22,7 +22,7 @@
                   </Label>
                   <ImageView fitHeight="62.0" fitWidth="88.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@IMG_1208.png" />
+                        <Image url="FeedLogo.png" />
                      </image>
                   </ImageView>
                </children>

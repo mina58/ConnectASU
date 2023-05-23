@@ -17,7 +17,7 @@
             </Label>
             <ImageView fitHeight="52.0" fitWidth="52.0" layoutX="28.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Downloads/443138.png" />
+                  <Image url="@Checkmark.png" />
                </image>
             </ImageView>
          </children>

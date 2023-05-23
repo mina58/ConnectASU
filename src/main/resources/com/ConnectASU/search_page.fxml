@@ -29,7 +29,7 @@
       </SplitPane>
       <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="155.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@25313.png" />
+            <Image url="@Search.png" />
          </image>
       </ImageView>
    </children>
