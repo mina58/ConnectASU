@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.AppController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="254.0" style="-fx-background-color: #0047AB; -fx-background-color: #EADDCA; -fx-background-color: #D3D3D3; -fx-background-color: #E5E4E2;">
          <children>
@@ -16,7 +20,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TextField layoutX="436.0" layoutY="131.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
+      <TextField fx:id="username_login" layoutX="436.0" layoutY="131.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
       <Label layoutX="342.0" layoutY="134.0" text="Username">
          <font>
             <Font name="Arial" size="17.0" />
@@ -27,8 +31,8 @@
             <Font name="Arial" size="17.0" />
          </font>
       </Label>
-      <Button fx:id="sign_up_button" layoutX="382.0" layoutY="340.0" mnemonicParsing="false" style="-fx-background-color: #C0C0C0; -fx-text-fill: #062028; -fx-background-color: #E5E4E2;" text="Sign Up" textFill="#062028" />
-      <Button layoutX="511.0" layoutY="340.0" mnemonicParsing="false" style="-fx-background-color: #c0c0c0; -fx-text-fill: #062028; -fx-background-color: #E5E4E2;" text="Log In" />
-      <PasswordField layoutX="436.0" layoutY="200.0" style="-fx-background-color: #E5E4E2;" />
+      <Button fx:id="sign_up_button" layoutX="382.0" layoutY="340.0" mnemonicParsing="false" onAction="#login_to_signin" style="-fx-background-color: #C0C0C0; -fx-text-fill: #062028; -fx-background-color: #E5E4E2;" text="Sign Up" textFill="#062028" />
+      <Button layoutX="511.0" layoutY="340.0" mnemonicParsing="false" onAction="#login_to_feed" style="-fx-background-color: #c0c0c0; -fx-text-fill: #062028; -fx-background-color: #E5E4E2;" text="Log In" />
+      <PasswordField fx:id="password_login" layoutX="436.0" layoutY="200.0" style="-fx-background-color: #E5E4E2;" />
    </children>
 </AnchorPane>

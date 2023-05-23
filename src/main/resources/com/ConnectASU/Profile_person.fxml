@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.AppController">
    <children>
       <AnchorPane layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="736.0" style="-fx-background-color: #B2BEB5;">
          <children>
@@ -20,6 +20,11 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <Button layoutX="-2.0" layoutY="7.0" mnemonicParsing="false" onAction="#return_to_feed" style="-fx-background-color: #40826D;" text="&lt;">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <SplitPane dividerPositions="0.9590592334494773" layoutX="23.0" layoutY="171.0" prefHeight="403.0" prefWidth="693.0" style="-fx-background-color: #B2BEB5;">

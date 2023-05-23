@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.AppController">
    <children>
       <Label alignment="CENTER" layoutX="1.0" prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: #40826D;" text="Create Group" textFill="#fffbfb">
          <font>
@@ -16,12 +15,12 @@
       </Label>
       <TextField layoutX="220.0" layoutY="91.0" />
       <Label alignment="CENTER" layoutX="51.0" layoutY="86.0" prefHeight="35.0" prefWidth="76.0" text="Name: " textFill="#111010" />
-      <Button alignment="CENTER" layoutX="482.0" layoutY="341.0" mnemonicParsing="false" text="Create" textFill="#40826d">
+      <Button alignment="CENTER" layoutX="482.0" layoutY="341.0" mnemonicParsing="false" onAction="#back_to_group_feed" text="Create" textFill="#40826d">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="407.0" layoutY="341.0" mnemonicParsing="false" text="Cancel" textFill="#a83a3a">
+      <Button alignment="CENTER" layoutX="407.0" layoutY="341.0" mnemonicParsing="false" onAction="#back_to_group_feed" text="Cancel" textFill="#a83a3a">
          <font>
             <Font size="14.0" />
          </font>
