@@ -99,17 +99,17 @@ public class AppController {
         }
         //  In login to feed
 
-        public void login_to_feed(ActionEvent event3) throws IOException{
-            //String username = username_login.getText ();
-          // String password = password_login.getText ();
-            root3 = FXMLLoader.load ( AppController.class.getResource ( "Feed.fxml" ) );
+    public void login_to_feed(ActionEvent event3) throws IOException{
+        String username = username_login.getText ();
+        String password = password_login.getText ();
+        root3 = FXMLLoader.load ( getClass ().getResource ( "Feed.fxml" ) );
 
-            stage3 = (Stage)((Node)event3.getSource ()).getScene ().getWindow ();
-            stage3.setTitle ( "Feed" );
-            scene3 = new Scene ( root3 );
-            stage3.setScene ( scene3 );
-            stage3.show ();
-        }
+        stage3 = (Stage)((Node)event3.getSource ()).getScene ().getWindow ();
+        stage3.setTitle ( "Feed" );
+        scene3 = new Scene ( root3 );
+        stage3.setScene ( scene3 );
+        stage3.show ();
+    }
         //Invalid Login
         //Backend related
         public void invalid_login(ActionEvent event5) throws IOException{
