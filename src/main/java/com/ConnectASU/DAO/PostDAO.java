@@ -2,6 +2,7 @@ package com.ConnectASU.DAO;
 
 import com.ConnectASU.DAO.DBUtilities.DBConnectionManager;
 import com.ConnectASU.entities.Post;
+import com.ConnectASU.entities.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.LIKES_TABLE;
-import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.POST_TABLE;
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.*;
 
 public class PostDAO {
     public Post createPost(String content, String userEmail, int groupId) throws SQLException {
@@ -137,7 +137,7 @@ public class PostDAO {
         return posts;
     }
 
-    public boolean addPostLike(int postID, String userEmail) throws SQLException{
+    public boolean addPostLike(int postID, String userEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowsAffected = 0;
@@ -194,5 +194,42 @@ public class PostDAO {
         }
 
         return posts;
+    }
+
+    public ArrayList<User> getPostLikesByID(int postId) throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<User> users = null;
+
+        try {
+            connection = DBConnectionManager.getConnection();
+            String sql = "SELECT * FROM " + USER_TABLE + " INNER JOIN " + LIKES_TABLE + " ON " +
+                    LIKES_TABLE + ".UserEmail = " + USER_TABLE + ".Email WHERE " + LIKES_TABLE +".PostID = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, postId);
+            resultSet = statement.executeQuery();
+            users = new ArrayList<User>();
+            while (resultSet.next()) {
+                String userEmail = resultSet.getString(1);
+                String userName = resultSet.getString(2);
+                String password = resultSet.getString(3);
+                users.add(new User(userName, userEmail, password));
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Failed to get post likes by ID", e);
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (resultSet != null) {
+                resultSet.close();
+            }
+
+            DBConnectionManager.closeConnection(connection);
+        }
+
+        return users;
     }
 }

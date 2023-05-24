@@ -1,10 +1,11 @@
 package com.ConnectASU.DAOTests;
 
+import com.ConnectASU.DAO.DBUtilities.DBSequenceResetter;
 import com.ConnectASU.DAO.GroupDAO;
 import com.ConnectASU.DAO.PostDAO;
 import com.ConnectASU.DAO.UserDAO;
-import com.ConnectASU.DAO.DBUtilities.DBSequenceResetter;
 import com.ConnectASU.entities.Post;
+import com.ConnectASU.entities.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -192,6 +193,42 @@ class PostDAOTest {
     public void testDeletePostByIDNotExits() {
         try {
             assertFalse(postDAO.deletePostByID(testID1));
+        } catch (SQLException e) {
+            fail("Failed to query the post, method thrown an exception: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetPostLikesByIDValid() {
+        try {
+            postDAO.createPost(testContent1, testAuthor1, 0);
+            postDAO.addPostLike(testID1, testAuthor1);
+            ArrayList<User> expected = new ArrayList<User>();
+            expected.add(new User(testName1, testEmail1 , testPassword1));
+            ArrayList<User> actual = postDAO.getPostLikesByID(testID1);
+            assertEquals(expected, actual, expected.get(0).getEmail() + " " + (actual.get(0)).getEmail());
+        } catch (SQLException e) {
+            fail("Failed to query the post, method thrown an exception: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetPostLikesByIDValidNoLikes() {
+        try {
+            postDAO.createPost(testContent1, testAuthor1, 0);
+            ArrayList<User> expected = new ArrayList<User>();
+            ArrayList<User> actual = postDAO.getPostLikesByID(testID1);
+            assertEquals(expected, actual);
+        } catch (SQLException e) {
+            fail("Failed to query the post, method thrown an exception: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetPostLikesByIDNotExits() {
+        try {
+            ArrayList<User> actual = postDAO.getPostLikesByID(testID1);
+            assertTrue(actual.isEmpty());
         } catch (SQLException e) {
             fail("Failed to query the post, method thrown an exception: " + e.getMessage());
         }

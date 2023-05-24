@@ -1,6 +1,5 @@
 package com.ConnectASU.Service;
 
-import com.ConnectASU.DAO.PostDAO;
 import com.ConnectASU.entities.Group;
 import com.ConnectASU.entities.Post;
 import com.ConnectASU.entities.User;
@@ -11,15 +10,14 @@ import java.util.ArrayList;
 public class PostService {
     private static final PostService instance = new PostService();
 
-    private PostService() {
-    }
+    private PostService() {}
 
     public static PostService getInstance() {
         return instance;
     }
 
     public Post createPost(String content, User user, Group group) throws InvalidPostException {
-        return null
+        return null;
     }
 
     public ArrayList<Post> getUserPosts(User user) {
@@ -35,14 +33,6 @@ public class PostService {
     }
 
     public void likePost(User user, Post post) {
-
-    }
-
-    public void sharePost(User user, Post post) {
-
-    }
-
-    public void deletePost(Post post) {
 
     }
 
