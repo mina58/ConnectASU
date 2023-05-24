@@ -13,7 +13,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <TextArea layoutX="56.0" layoutY="60.0" prefHeight="251.0" prefWidth="476.0" />
+      <TextArea fx:id="create_post_text_group" layoutX="56.0" layoutY="60.0" prefHeight="251.0" prefWidth="476.0" />
       <Button layoutX="500.0" layoutY="343.0" mnemonicParsing="false" onAction="#back_to_group_feed" text="Post" textFill="#40826d">
          <font>
             <Font size="14.0" />

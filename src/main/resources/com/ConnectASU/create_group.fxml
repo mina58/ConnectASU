@@ -13,7 +13,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="220.0" layoutY="91.0" />
+      <TextField fx:id="create_group_name_text" layoutX="220.0" layoutY="91.0" />
       <Label alignment="CENTER" layoutX="51.0" layoutY="86.0" prefHeight="35.0" prefWidth="76.0" text="Name: " textFill="#111010" />
       <Button alignment="CENTER" layoutX="482.0" layoutY="341.0" mnemonicParsing="false" onAction="#back_to_group_feed" text="Create" textFill="#40826d">
          <font>

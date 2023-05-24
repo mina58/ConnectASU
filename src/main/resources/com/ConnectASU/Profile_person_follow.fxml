@@ -15,7 +15,7 @@
          <children>
             <AnchorPane prefHeight="40.0" prefWidth="733.0" style="-fx-background-color: #40826D;">
                <children>
-                  <Label alignment="CENTER" layoutY="12.0" prefHeight="23.0" prefWidth="736.0" text="Peson_name">
+                  <Label fx:id="profile_name" alignment="CENTER" layoutY="12.0" prefHeight="23.0" prefWidth="736.0" text="Peson_name">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -44,10 +44,10 @@
             </Button>
             <ImageView fitHeight="117.0" fitWidth="116.0" layoutX="26.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Profile.jpeg" />
+                  <Image url="@Profile.png" />
                </image>
             </ImageView>
-            <Button alignment="CENTER" layoutX="552.0" layoutY="107.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="Follow">
+            <Button fx:id="follow_button" alignment="CENTER" layoutX="552.0" layoutY="107.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="Follow">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
@@ -29,7 +30,10 @@
             </AnchorPane>
             <SplitPane dividerPositions="0.9590592334494773" layoutX="23.0" layoutY="117.0" prefHeight="467.0" prefWidth="693.0" style="-fx-background-color: #B2BEB5;">
                <items>
-                  <AnchorPane fx:id="post_feed" blendMode="SCREEN" minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="659.0" style="-fx-background-color: #B2BEB5; -fx-background-color: #B2BEB5;" />
+                  <AnchorPane fx:id="post_feed" blendMode="SCREEN" minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="659.0" style="-fx-background-color: #B2BEB5; -fx-background-color: #B2BEB5;">
+                     <children>
+                        <ListView fx:id="feed_list" layoutX="-1.0" layoutY="-4.0" prefHeight="470.0" prefWidth="657.0" />
+                     </children></AnchorPane>
                   <AnchorPane fx:id="scroll_profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <ScrollBar layoutX="-1.0" orientation="VERTICAL" prefHeight="401.0" prefWidth="28.0" style="-fx-background-color: #B2BEB5;" />
