@@ -5,6 +5,7 @@ import com.ConnectASU.entities.User;
 import com.ConnectASU.exceptions.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserService {
     private static final UserService instance = new UserService();
@@ -69,9 +70,8 @@ public class UserService {
                 throw new InvalidLoginException();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new InvalidLoginException();
         }
-        return null;
     }
 
     public void followUser(User follower, User followee) throws FailedFollowException {
@@ -93,8 +93,21 @@ public class UserService {
             if (!userDAO.unfollowUser(follower.getEmail(), followee.getEmail()))
                 throw new FailedUnfollowException();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new FailedUnfollowException();
         }
+    }
+
+    public ArrayList<User> getUserFollowers(User user) throws CannotGetFollowersException {
+        if (user == null)
+            throw new CannotGetFollowersException();
+        ArrayList<User> followers = new ArrayList<User>();
+        try {
+            UserDAO userDAO = new UserDAO();
+            followers = userDAO.getUserFollowersByEmail(user.getEmail());
+        } catch (SQLException e) {
+            throw new CannotGetFollowersException();
+        }
+        return followers;
     }
 }
 

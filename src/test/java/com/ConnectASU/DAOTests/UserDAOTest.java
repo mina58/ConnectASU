@@ -255,4 +255,60 @@ class UserDAOTest {
             }
         }
     }
+
+    @Test
+    public void testGetUserFollowersByEmailValid() {
+        try {
+            userDAO.createUser(testEmail1, testName1, testPassword1);
+            userDAO.createUser(testEmail2, testName2, testPassword2);
+            userDAO.createUser(testEmail3, testName3, testPassword3);
+            userDAO.followUser(testEmail2, testEmail1);
+            userDAO.followUser(testEmail3, testEmail1);
+            User expected1 = new User(testName2, testEmail2, testPassword2);
+            User expected2 = new User(testName3, testEmail3, testPassword3);
+            ArrayList<User> actual = userDAO.getUserFollowersByEmail(testEmail1);
+            ArrayList<User> expected = new ArrayList<>();
+            expected.add(expected1);
+            expected.add(expected2);
+            assertEquals(expected, actual);
+        } catch (SQLException e) {
+            fail("Failed to query the users by name, method thrown an exception: " + e.getMessage());
+        } finally {
+            try {
+                userDAO.deleteUserByEmail(testEmail1);
+                userDAO.deleteUserByEmail(testEmail2);
+                userDAO.deleteUserByEmail(testEmail3);
+            } catch (SQLException e) {
+                fail("Failed to delete the users, method thrown an exception: " + e.getMessage());
+            }
+        }
+
+    }
+
+    @Test
+    public void testGetUserFollowersByEmailUserNotExists() {
+        try {
+            ArrayList<User> actual = userDAO.getUserFollowersByEmail(testEmail1);
+            assertTrue(actual.isEmpty());
+        } catch (SQLException e) {
+            fail("Failed to query the users by name, method thrown an exception: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetUserFollowersByEmailNoFollowers() {
+        try {
+            userDAO.createUser(testEmail1, testName1, testPassword1);
+            ArrayList<User> actual = userDAO.getUserFollowersByEmail(testEmail1);
+            assertTrue(actual.isEmpty());
+        } catch (SQLException e) {
+            fail("Failed to query the users by name, method thrown an exception: " + e.getMessage());
+        } finally {
+            try {
+                userDAO.deleteUserByEmail(testEmail1);
+            } catch (SQLException e) {
+                fail("Failed to delete the users, method thrown an exception: " + e.getMessage());
+            }
+        }
+    }
 }
