@@ -62,7 +62,7 @@ public class UserService {
         try {
             UserDAO userDAO = new UserDAO();
             User user = userDAO.getUserByEmail(email);
-            if (user.getPassword().equals(password)) {
+            if (user != null && user.getPassword().equals(password)) {
                 return user;
             } else {
                 throw new InvalidLoginException();

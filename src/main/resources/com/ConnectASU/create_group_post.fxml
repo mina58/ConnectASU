@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.AppController">
+   <children>
+      <Label fx:id="create_post_label" alignment="CENTER" contentDisplay="CENTER" layoutY="-1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="31.0" prefWidth="600.0" style="-fx-background-color: #191970; -fx-background-color: #1434A4; -fx-background-color: #4169E1; -fx-background-color: #40826D;" text="Create Post" textAlignment="CENTER" textFill="#fefff6" textOverrun="CLIP">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="56.0" layoutY="60.0" prefHeight="251.0" prefWidth="476.0" />
+      <Button layoutX="500.0" layoutY="343.0" mnemonicParsing="false" onAction="#back_to_group_feed" text="Post" textFill="#40826d">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button cancelButton="true" layoutX="433.0" layoutY="343.0" mnemonicParsing="false" onAction="#back_to_group_feed" text="Cancel" textFill="#a83a3a">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

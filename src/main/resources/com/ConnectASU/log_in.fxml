@@ -21,7 +21,7 @@
          </children>
       </AnchorPane>
       <TextField fx:id="username_login" layoutX="436.0" layoutY="131.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
-      <Label layoutX="342.0" layoutY="134.0" text="Username">
+      <Label layoutX="342.0" layoutY="134.0" text="Email">
          <font>
             <Font name="Arial" size="17.0" />
          </font>

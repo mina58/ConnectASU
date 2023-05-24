@@ -26,16 +26,16 @@
          </children>
       </AnchorPane>
       <SplitPane dividerPositions="0.9590592334494773" layoutX="23.0" layoutY="171.0" prefHeight="404.0" prefWidth="693.0" style="-fx-background-color: #B2BEB5;">
-        <items>
-          <AnchorPane fx:id="post_feed" blendMode="SCREEN" minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="547.0" style="-fx-background-color: #B2BEB5; -fx-background-color: #B2BEB5;" />
-          <AnchorPane fx:id="scroll_profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <items>
+            <AnchorPane fx:id="post_feed" blendMode="SCREEN" minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="547.0" style="-fx-background-color: #B2BEB5; -fx-background-color: #B2BEB5;" />
+            <AnchorPane fx:id="scroll_profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <ScrollBar layoutX="-1.0" orientation="VERTICAL" prefHeight="401.0" prefWidth="28.0" style="-fx-background-color: #B2BEB5;" />
                </children>
             </AnchorPane>
-        </items>
+         </items>
       </SplitPane>
-      <Button alignment="CENTER" layoutX="573.0" layoutY="119.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="Followers">
+      <Button alignment="CENTER" layoutX="573.0" layoutY="119.0" mnemonicParsing="false" onAction="#to_followers" prefHeight="26.0" prefWidth="105.0" text="Followers">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
