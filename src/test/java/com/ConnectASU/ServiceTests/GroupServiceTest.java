@@ -6,6 +6,7 @@ import com.ConnectASU.DAO.UserDAO;
 import com.ConnectASU.Service.GroupService;
 import com.ConnectASU.entities.Group;
 import com.ConnectASU.entities.User;
+import com.ConnectASU.exceptions.CannotGetMembersException;
 import com.ConnectASU.exceptions.CannotJoinGroupException;
 import com.ConnectASU.exceptions.CannotLeaveGroupException;
 import com.ConnectASU.exceptions.InvalidGroupNameException;
@@ -69,6 +70,20 @@ class GroupServiceTest {
             User user = new User(validName1, validEmail1, validPassword1);
             Group actual = groupService.createGroup(user, validGroupName1);
             Group expected = new Group(1, validGroupName1);
+            assertEquals(expected, actual);
+        } catch (Exception e) {
+            fail("Failed to create group");
+        }
+    }
+
+    @Test
+    public void testCreateGroupAdminInGroup() {
+        try {
+            User user = new User(validName1, validEmail1, validPassword1);
+            Group createdGroup = groupService.createGroup(user, validGroupName1);
+            ArrayList<User> expected = new ArrayList<>();
+            expected.add(user);
+            ArrayList<User> actual = groupService.getGroupMembers(createdGroup);
             assertEquals(expected, actual);
         } catch (Exception e) {
             fail("Failed to create group");
@@ -159,6 +174,31 @@ class GroupServiceTest {
             User user = new User(invalidName, invalidEmail, invalidPassword);
             Group group = new Group(1, validGroupName1);
             groupService.leaveGroup(user, group);
+        });
+    }
+
+    @Test
+    public void testGetGroupMembersValid() {
+        try {
+            User user = new User(validName1, validEmail1, validPassword1);
+            Group group = groupService.createGroup(user, validGroupName1);
+            User user2 = new User(validName2, validEmail2, validPassword2);
+            groupService.joinGroup(user2, group);
+            ArrayList<User> members = groupService.getGroupMembers(group);
+            ArrayList<User> expected = new ArrayList<User>();
+            expected.add(user);
+            expected.add(user2);
+            assertEquals(expected, members);
+        } catch (Exception e) {
+            fail("Failed to get group members");
+        }
+    }
+
+    @Test
+    public void testGetGroupMembersInvalidGroup() {
+        assertThrows(CannotGetMembersException.class, () -> {
+            Group group = new Group(1, "group1");
+            groupService.getGroupMembers(group);
         });
     }
 }

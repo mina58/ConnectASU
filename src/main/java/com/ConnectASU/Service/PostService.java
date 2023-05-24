@@ -62,15 +62,20 @@ public class PostService {
     }
 
     public ArrayList<Post> getUserFeed(User user) {
-        ArrayList<Post> posts = new ArrayList<>();
-        if (user == null) {
-            return posts;
-        }
-        try {
-             
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return posts;
+        return null;
     }
+
+    public void likePost(User user, Post post) {
+
+    }
+
+    public void sharePost(User user, Post post) {
+
+    }
+
+    public void deletePost(Post post) {
+
+    }
+
+
 }

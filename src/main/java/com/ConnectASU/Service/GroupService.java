@@ -3,6 +3,7 @@ package com.ConnectASU.Service;
 import com.ConnectASU.DAO.GroupDAO;
 import com.ConnectASU.entities.Group;
 import com.ConnectASU.entities.User;
+import com.ConnectASU.exceptions.CannotGetMembersException;
 import com.ConnectASU.exceptions.CannotJoinGroupException;
 import com.ConnectASU.exceptions.CannotLeaveGroupException;
 import com.ConnectASU.exceptions.InvalidGroupNameException;
@@ -74,7 +75,19 @@ public class GroupService {
         }
     }
 
-    public ArrayList<User> getGroupMembers(Group group) {
-        return null;
+    public ArrayList<User> getGroupMembers(Group group) throws CannotGetMembersException {
+        if (group == null) {
+            throw new CannotGetMembersException();
+        }
+        try {
+            GroupDAO groupDAO = new GroupDAO();
+            ArrayList<User> groupMembers = groupDAO.getGroupMembers(group.getId());
+            if (groupMembers.isEmpty()) {
+                throw new CannotGetMembersException();
+            }
+            return groupMembers;
+        } catch (SQLException e) {
+            throw new CannotGetMembersException();
+        }
     }
 }
