@@ -77,5 +77,8 @@ public class PostService {
 
     }
 
+    public ArrayList<User> getPostLikes() {
+        return null;
+    }
 
 }
