@@ -18,47 +18,16 @@ public class PostService {
         return instance;
     }
 
-    public void createPost(String content, User user, Group group) throws InvalidPostException {
-        if (content.length() == 0 || user == null) {
-            throw new InvalidPostException();
-        }
-        try {
-            PostDAO postDAO = new PostDAO();
-            if (group != null)
-                postDAO.createPost(content, user.getEmail(), group.getId());
-            else
-                postDAO.createPost(content, user.getEmail(), 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Post createPost(String content, User user, Group group) throws InvalidPostException {
+        return null
     }
 
     public ArrayList<Post> getUserPosts(User user) {
-        ArrayList<Post> posts = new ArrayList<>();
-        if (user == null) {
-            return posts;
-        }
-        try {
-            PostDAO postDAO = new PostDAO();
-            posts = postDAO.getUserPosts(user.getEmail());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return posts;
+        return null;
     }
 
     public ArrayList<Post> getGroupPosts(Group group) {
-        ArrayList<Post> posts = new ArrayList<>();
-        if (group == null) {
-            return posts;
-        }
-        try {
-            PostDAO postDAO = new PostDAO();
-            posts = postDAO.getGroupPosts(group.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return posts;
+        return null;
     }
 
     public ArrayList<Post> getUserFeed(User user) {
