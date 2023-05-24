@@ -161,6 +161,4 @@ class GroupServiceTest {
             groupService.leaveGroup(user, group);
         });
     }
-
-
 }

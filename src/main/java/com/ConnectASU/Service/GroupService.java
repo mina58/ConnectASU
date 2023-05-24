@@ -8,6 +8,7 @@ import com.ConnectASU.exceptions.CannotLeaveGroupException;
 import com.ConnectASU.exceptions.InvalidGroupNameException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class GroupService {
     private static final GroupService instance = new GroupService();
@@ -29,7 +30,11 @@ public class GroupService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        try {
+            joinGroup(admin, group);
+        } catch (CannotJoinGroupException e) {
+            e.printStackTrace();
+        }
         return group;
     }
 
@@ -67,5 +72,9 @@ public class GroupService {
         } catch (SQLException e) {
             throw new CannotLeaveGroupException();
         }
+    }
+
+    public ArrayList<User> getGroupMembers(Group group) {
+        return null;
     }
 }
