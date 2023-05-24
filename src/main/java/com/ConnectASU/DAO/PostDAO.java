@@ -205,7 +205,8 @@ public class PostDAO {
         try {
             connection = DBConnectionManager.getConnection();
             String sql = "SELECT * FROM " + USER_TABLE + " INNER JOIN " + LIKES_TABLE + " ON " +
-                    LIKES_TABLE + ".UserEmail = " + USER_TABLE + ".Email WHERE " + LIKES_TABLE +".PostID = ?";
+                    LIKES_TABLE + ".UserEmail = " + USER_TABLE + ".Email WHERE " + LIKES_TABLE +".PostID = ?" +
+                    " ORDER BY " + LIKES_TABLE + ".PostID";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, postId);
             resultSet = statement.executeQuery();

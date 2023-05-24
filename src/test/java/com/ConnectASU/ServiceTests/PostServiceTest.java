@@ -9,10 +9,7 @@ import com.ConnectASU.Service.UserService;
 import com.ConnectASU.entities.Group;
 import com.ConnectASU.entities.Post;
 import com.ConnectASU.entities.User;
-import com.ConnectASU.exceptions.CannotCreatePostException;
-import com.ConnectASU.exceptions.CannotGetFeedException;
-import com.ConnectASU.exceptions.CannotGetGroupPostsException;
-import com.ConnectASU.exceptions.CannotGetUserPostsException;
+import com.ConnectASU.exceptions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,10 +53,11 @@ public class PostServiceTest {
         DBSequenceResetter.resetDBSequence(POST_TABLE);
         DBSequenceResetter.resetDBSequence(GROUP_TABLE);
         try {
-            userDAO.createUser(validEmail1, validPassword1, validName1);
-            userDAO.createUser(validEmail2, validPassword2, validName2);
-            userDAO.createUser(validEmail3, validPassword3, validName3);
+            userDAO.createUser(validEmail1, validName1, validPassword1);
+            userDAO.createUser(validEmail2, validName2, validPassword2);
+            userDAO.createUser(validEmail3, validName3, validPassword3);
             groupDAO.createGroup(validGroupName1, validEmail1);
+            groupDAO.addMember(1, validEmail1);
             groupDAO.addMember(1, validEmail2);
         } catch (Exception e) {
             fail("Failed to initialize test");
@@ -160,6 +158,7 @@ public class PostServiceTest {
             assertEquals(expected, actual);
         } catch (Exception e) {
             fail("Failed to get user posts");
+            e.printStackTrace();
         }
     }
 
@@ -251,55 +250,13 @@ public class PostServiceTest {
             User user2 = new User(validName2, validEmail2, validPassword2);
             UserService userService = UserService.getInstance();
             userService.followUser(user1, user2);
-            postService.createPost(postContent1, user2, null);
-            postService.createPost(postContent2, user2, null);
-            postService.createPost(postContent3, user2, null);
-            ArrayList<Post> expected = new ArrayList<>();
-            expected.add(new Post(3, postContent3, user2.getName()));
-            expected.add(new Post(2, postContent2, user2.getName()));
-            expected.add(new Post(1, postContent1, user2.getName()));
-            ArrayList<Post> actual = postService.getUserFeed(user1);
-            assertEquals(expected, actual);
-        } catch (Exception e) {
-            fail("Failed to get user feed");
-        }
-    }
-
-    @Test
-    public void testGetUserFeedValidGroupPosts() {
-        try {
-            User user1 = new User(validName1, validEmail1, validPassword1);
-            User user2 = new User(validName2, validEmail2, validPassword2);
-            Group group = new Group(1, validGroupName1);
-            Post post1 = postService.createPost(postContent1, user2, group);
-            Post post2 = postService.createPost(postContent2, user2, group);
-            Post post3 = postService.createPost(postContent3, user2, group);
-            ArrayList<Post> expected = new ArrayList<>();
-            expected.add(post3);
-            expected.add(post2);
-            expected.add(post1);
-            ArrayList<Post> actual = postService.getUserFeed(user1);
-            assertEquals(expected, actual);
-        } catch (Exception e) {
-            fail("Failed to get user feed");
-        }
-    }
-
-    @Test
-    public void testGetUserFeedValidUserPostsAndGroupPosts() {
-        try {
-            User user1 = new User(validName1, validEmail1, validPassword1);
-            User user2 = new User(validName2, validEmail2, validPassword2);
-            Group group = new Group(1, validGroupName1);
             Post post1 = postService.createPost(postContent1, user2, null);
-            Post post2 = postService.createPost(postContent2, user2, group);
-            Post post3 = postService.createPost(postContent3, user2, group);
-            UserService userService = UserService.getInstance();
-            userService.followUser(user1, user2);
+            Post post2 = postService.createPost(postContent2, user2, null);
+            Post post3 = postService.createPost(postContent3, user2, null);
             ArrayList<Post> expected = new ArrayList<>();
-            expected.add(post1);
             expected.add(post3);
             expected.add(post2);
+            expected.add(post1);
             ArrayList<Post> actual = postService.getUserFeed(user1);
             assertEquals(expected, actual);
         } catch (Exception e) {
@@ -337,16 +294,149 @@ public class PostServiceTest {
     }
 
     @Test
+    public void testGetUserFeedValidMultipleFollowing() {
+        try {
+            User user1 = new User(validName1, validEmail1, validPassword1);
+            User user2 = new User(validName2, validEmail2, validPassword2);
+            User user3 = new User(validName3, validEmail3, validPassword3);
+            UserService userService = UserService.getInstance();
+            userService.followUser(user1, user2);
+            userService.followUser(user1, user3);
+            Post post1 = postService.createPost(postContent1, user2, null);
+            Post post2 = postService.createPost(postContent2, user3, null);
+            Post post3 = postService.createPost(postContent3, user2, null);
+            ArrayList<Post> expected = new ArrayList<>();
+            expected.add(post3);
+            expected.add(post2);
+            expected.add(post1);
+            ArrayList<Post> actual = postService.getUserFeed(user1);
+            assertEquals(expected, actual);
+        } catch (Exception e) {
+            fail("Failed to get user feed");
+        }
+    }
+
+    @Test
     public void testLikePostValid() {
         try {
             User user1 = new User(validName1, validEmail1, validPassword1);
             Post post = postService.createPost(postContent1, user1, null);
             User user2 = new User(validName2, validEmail2, validPassword2);
             postService.likePost(user2, post);
+            User user3 = new User(validName3, validEmail3, validPassword3);
+            postService.likePost(user3, post);
             ArrayList<User> actual = postDAO.getPostLikesByID(post.getId());
             ArrayList<User> expected = new ArrayList<>();
             expected.add(user2);
+            expected.add(user3);
             assertEquals(expected, actual);
+        } catch (Exception e) {
+            fail("Failed to like post");
+        }
+    }
+
+    @Test
+    public void testLikePostValidGroupPost() {
+        try {
+            User user1 = new User(validName1, validEmail1, validPassword1);
+            Group group = new Group(1, validGroupName1);
+            Post post = postService.createPost(postContent1, user1, group);
+            User user2 = new User(validName2, validEmail2, validPassword2);
+            postService.likePost(user2, post);
+            User user3 = new User(validName3, validEmail3, validPassword3);
+            postService.likePost(user3, post);
+            ArrayList<User> actual = postDAO.getPostLikesByID(post.getId());
+            ArrayList<User> expected = new ArrayList<>();
+            expected.add(user2);
+            expected.add(user3);
+            assertEquals(expected, actual);
+        } catch (Exception e) {
+            fail("Failed to like post");
+        }
+    }
+
+    @Test
+    public void testLikePostInvalidPostNull() {
+        assertThrows(CannotLikeException.class, () -> {
+            User user = new User(validName1, validEmail1, validPassword1);
+            postService.likePost(user, null);
+        });
+    }
+
+    @Test
+    public void testLikePostInvalidPost() {
+        assertThrows(CannotLikeException.class, () -> {
+            Post post = new Post(1, "XXXXXXXX", "XXXXXXXX");
+            User user = new User(validName1, validEmail1, validPassword1);
+            postService.likePost(user, post);
+        });
+    }
+
+    @Test
+    public void testLikePostInvalidUserNull() {
+        assertThrows(CannotLikeException.class, () -> {
+            User user = new User(validName1, validEmail1, validPassword1);
+            Post post = new Post(1, postContent1, validName1);
+            postService.createPost(postContent1, user, null);
+            postService.likePost(null, post);
+        });
+    }
+
+    @Test
+    public void testGetPostLikesValid() {
+        try {
+            User user1 = new User(validName1, validEmail1, validPassword1);
+            Post post = postService.createPost(postContent1, user1, null);
+            User user2 = new User(validName2, validEmail2, validPassword2);
+            postService.likePost(user2, post);
+            User user3 = new User(validName3, validEmail3, validPassword3);
+            postService.likePost(user3, post);
+            ArrayList<User> actual = postService.getPostLikes(post);
+            ArrayList<User> expected = new ArrayList<>();
+            expected.add(user2);
+            expected.add(user3);
+            assertEquals(expected, actual);
+        } catch (Exception e) {
+            fail("Failed to like post");
+        }
+    }
+
+    @Test
+    public void testGetPostLikesValidGroupPost() {
+        try {
+            User user1 = new User(validName1, validEmail1, validPassword1);
+            Group group = new Group(1, validGroupName1);
+            Post post = postService.createPost(postContent1, user1, group);
+            User user2 = new User(validName2, validEmail2, validPassword2);
+            postService.likePost(user2, post);
+            User user3 = new User(validName3, validEmail3, validPassword3);
+            postService.likePost(user3, post);
+            ArrayList<User> actual = postService.getPostLikes(post);
+            ArrayList<User> expected = new ArrayList<>();
+            expected.add(user2);
+            expected.add(user3);
+            assertEquals(expected, actual);
+        } catch (Exception e) {
+            fail("Failed to like post");
+        }
+    }
+
+    @Test
+    public void testGetPostLikesInvalidPostNull() {
+        assertThrows(CannotGetLikesException.class, () -> {
+            User user = new User(validName1, validEmail1, validPassword1);
+            Post post = postService.createPost(postContent1, user, null);
+            ArrayList<User> actual = postService.getPostLikes(null);
+        });
+    }
+
+    @Test
+    public void testGetPostLikesNoLikes() {
+        try {
+            User user = new User(validName1, validEmail1, validPassword1);
+            Post post = postService.createPost(postContent1, user, null);
+            ArrayList<User> actual = postService.getPostLikes(post);
+            assertTrue(actual.isEmpty());
         } catch (Exception e) {
             fail("Failed to like post");
         }

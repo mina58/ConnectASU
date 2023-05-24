@@ -195,4 +195,30 @@ public class UserDAO {
 
         return followers;
     }
+
+    public ArrayList<User> getUserFollowingByEmail(String email) throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<User> following = null;
+
+        try {
+            connection = DBConnectionManager.getConnection();
+            String sql = "SELECT * FROM Follow WHERE Follower = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+            following = new ArrayList<User>();
+            while (resultSet.next()) {
+                String currentFollowerEmail = resultSet.getString(1);
+                String currentFolloweeEmail = resultSet.getString(2);
+                User user = getUserByEmail(currentFolloweeEmail);
+                following.add(user);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Failed to retrieve following by email.", e);
+        }
+
+        return following;
+    }
 }
