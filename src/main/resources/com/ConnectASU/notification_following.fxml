@@ -20,7 +20,7 @@
       </Label>
       <ImageView fitHeight="44.0" fitWidth="40.0" layoutX="24.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@92386.png" />
+            <Image url="Notification.png" />
          </image>
       </ImageView>
    </children>

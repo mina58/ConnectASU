@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.AppController">
    <children>
       <AnchorPane layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="736.0" style="-fx-background-color: #B2BEB5;">
          <children>
@@ -21,6 +20,11 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <Button layoutX="-2.0" layoutY="7.0" mnemonicParsing="false" onAction="#return_to_feed" style="-fx-background-color: #40826D;" text="&lt;">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <SplitPane dividerPositions="0.9590592334494773" layoutX="23.0" layoutY="171.0" prefHeight="403.0" prefWidth="693.0" style="-fx-background-color: #B2BEB5;">
@@ -33,14 +37,14 @@
                   </AnchorPane>
                </items>
             </SplitPane>
-            <Button alignment="CENTER" layoutX="414.0" layoutY="106.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="Following">
+            <Button alignment="CENTER" layoutX="414.0" layoutY="106.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="Followers">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </Button>
             <ImageView fitHeight="117.0" fitWidth="116.0" layoutX="26.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../var/folders/z3/17lsk1sx6kxfln19hhbsj45m0000gn/T/TemporaryItems/NSIRD_screencaptureui_eMX1B5/Screenshot%202023-05-18%20at%209.14.11%20PM.png" />
+                  <Image url="@Profile.jpeg" />
                </image>
             </ImageView>
             <Button alignment="CENTER" layoutX="552.0" layoutY="107.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="Follow">
