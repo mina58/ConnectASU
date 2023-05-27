@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.*;
 
 public class GroupDAO {
-    public Group createGroup(String groupName, String adminEmail) throws SQLException {
+    public synchronized Group createGroup(String groupName, String adminEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet generatedKeys = null;
@@ -72,7 +72,7 @@ public class GroupDAO {
         return group;
     }
 
-    public boolean deleteGroupByID(int groupId) throws SQLException {
+    public synchronized boolean deleteGroupByID(int groupId) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowAffected = 0;
@@ -94,7 +94,7 @@ public class GroupDAO {
         return rowAffected == 1;
     }
 
-    public boolean addMember(int groupID, String userEmail) throws SQLException{
+    public synchronized boolean addMember(int groupID, String userEmail) throws SQLException{
         Connection connection = null;
         PreparedStatement statement = null;
         int rowAffected = 0;
@@ -116,7 +116,7 @@ public class GroupDAO {
         return rowAffected == 1;
     }
 
-    public boolean removeMember(int groupID, String userEmail) throws SQLException {
+    public synchronized boolean removeMember(int groupID, String userEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowAffected = 0;

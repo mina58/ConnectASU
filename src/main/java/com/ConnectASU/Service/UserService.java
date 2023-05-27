@@ -18,7 +18,7 @@ public class UserService {
         return instance;
     }
 
-    public void createAccount(String email, String name, String password)
+    public synchronized void createAccount(String email, String name, String password)
             throws InvalidEmailException, InvalidPasswordException, InvalidUserNameException {
         validateEmail(email);
         validatePassword(password);
@@ -50,7 +50,7 @@ public class UserService {
         }
     }
 
-    public void deleteAccount(User user) {
+    public synchronized void deleteAccount(User user) {
         try {
             UserDAO userDAO = new UserDAO();
             if (user != null)

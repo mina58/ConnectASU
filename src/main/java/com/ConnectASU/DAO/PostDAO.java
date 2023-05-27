@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.*;
 
 public class PostDAO {
-    public Post createPost(String content, String userEmail, int groupId) throws SQLException {
+    public synchronized Post createPost(String content, String userEmail, int groupId) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet generatedKeys = null;
@@ -47,7 +47,7 @@ public class PostDAO {
         return post;
     }
 
-    public boolean deletePostByID(int postId) throws SQLException {
+    public synchronized boolean deletePostByID(int postId) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowsAffected = 0;
@@ -137,7 +137,7 @@ public class PostDAO {
         return posts;
     }
 
-    public boolean addPostLike(int postID, String userEmail) throws SQLException {
+    public synchronized boolean addPostLike(int postID, String userEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowsAffected = 0;

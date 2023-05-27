@@ -21,7 +21,7 @@ public class GroupService {
         return instance;
     }
 
-    public Group createGroup(User admin, String groupName) throws InvalidGroupNameException {
+    public synchronized Group createGroup(User admin, String groupName) throws InvalidGroupNameException {
         validateGroupName(groupName);
         Group group = null;
         try {
@@ -45,7 +45,7 @@ public class GroupService {
         }
     }
 
-    public void deleteGroup(Group group) {
+    public synchronized void deleteGroup(Group group) {
         try {
             GroupDAO groupDAO = new GroupDAO();
             if (group != null)

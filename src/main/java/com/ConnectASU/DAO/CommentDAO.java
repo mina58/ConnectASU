@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.COMMENT_TABLE;
 
 public class CommentDAO {
-    public Comment createComment(String commentContent, int postID, String authorEmail) throws SQLException {
+    public synchronized Comment createComment(String commentContent, int postID, String authorEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         Comment comment = null;
@@ -115,7 +115,7 @@ public class CommentDAO {
         return comments;
     }
 
-    public boolean deleteCommentByID(int commentID) throws SQLException {
+    public synchronized boolean  deleteCommentByID(int commentID) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowsAffected = 0;

@@ -18,7 +18,7 @@ public class CommentService {
         return instance;
     }
 
-    public Comment addComment(Post post, String content, User author) throws InvalidCommentException {
+    public synchronized Comment addComment(Post post, String content, User author) throws InvalidCommentException {
         if (post == null || content == null || author == null || content.isEmpty()) {
             throw new InvalidCommentException();
         }

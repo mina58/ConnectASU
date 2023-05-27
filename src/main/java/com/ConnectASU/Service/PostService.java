@@ -21,7 +21,7 @@ public class PostService {
         return instance;
     }
 
-    public Post createPost(String content, User user, Group group) throws CannotCreatePostException {
+    public  Post createPost(String content, User user, Group group) throws CannotCreatePostException {
         if (content == null || user == null || content.isEmpty()) {
             throw new CannotCreatePostException();
         }
@@ -52,7 +52,7 @@ public class PostService {
         }
     }
 
-    public ArrayList<Post> getUserPosts(User user) throws CannotGetUserPostsException {
+    public synchronized ArrayList<Post> getUserPosts(User user) throws CannotGetUserPostsException {
         if (user == null) {
             throw new CannotGetUserPostsException();
         }
