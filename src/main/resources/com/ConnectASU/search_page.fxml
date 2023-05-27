@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.ScreensController">
    <children>
       <AnchorPane prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #40826D;" />
       <TextField fx:id="search_text_area" layoutX="288.0" layoutY="92.0" minHeight="-Infinity" prefHeight="16.0" prefWidth="140.0" scaleX="3.0" scaleY="3.0">
