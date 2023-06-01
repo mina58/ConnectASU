@@ -1,8 +1,10 @@
 package com.ConnectASU.Service;
 
+import com.ConnectASU.DAO.GroupDAO;
+import com.ConnectASU.DAO.UserDAO;
 import com.ConnectASU.entities.Group;
-import com.ConnectASU.entities.Post;
 import com.ConnectASU.entities.User;
+import com.ConnectASU.exceptions.InvalidSearchException;
 
 import java.util.ArrayList;
 
@@ -15,15 +17,28 @@ public class SearchService {
         return instance;
     }
 
-    public ArrayList<User> searchUser(String userSearch) {
-        return null;
+    public ArrayList<User> searchUser(String userSearch) throws InvalidSearchException {
+        if (userSearch == null || userSearch.isEmpty()) {
+            throw new InvalidSearchException();
+        }
+        try {
+            UserDAO userDAO = new UserDAO();
+            return userDAO.getUserSearchByName(userSearch);
+        } catch (Exception e) {
+            throw new InvalidSearchException();
+        }
     }
 
-    public ArrayList<Group> searchGroup(String groupSearch) {
-        return null;
-    }
+    public ArrayList<Group> searchGroup(String groupSearch) throws InvalidSearchException {
+        if (groupSearch == null || groupSearch.isEmpty()) {
+            throw new InvalidSearchException();
+        }
 
-    public ArrayList<Post> postSearch(String postSearch) {
-        return null;
+        try {
+            GroupDAO groupDAO = new GroupDAO();
+            return groupDAO.getGroupSearchByName(groupSearch);
+        } catch (Exception e) {
+            throw new InvalidSearchException();
+        }
     }
 }

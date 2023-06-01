@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.USER_TABLE;
 
 public class UserDAO {
-    public boolean createUser(String email, String name, String password) throws SQLException {
+    public synchronized boolean createUser(String email, String name, String password) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowsAffected = 0;
@@ -67,7 +67,7 @@ public class UserDAO {
         return user;
     }
 
-    public boolean deleteUserByEmail(String email) throws SQLException {
+    public synchronized boolean deleteUserByEmail(String email) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowsAffected = 0;
@@ -124,7 +124,7 @@ public class UserDAO {
         return users;
     }
 
-    public boolean followUser(String followerEmail, String followeeEmail) throws SQLException {
+    public synchronized boolean followUser(String followerEmail, String followeeEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowsAffected = 0;
@@ -147,7 +147,7 @@ public class UserDAO {
         return rowsAffected == 1;
     }
 
-    public boolean unfollowUser(String followerEmail, String followeeEmail) throws SQLException {
+    public synchronized boolean unfollowUser(String followerEmail, String followeeEmail) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         int rowsAffected = 0;
@@ -194,5 +194,31 @@ public class UserDAO {
         }
 
         return followers;
+    }
+
+    public ArrayList<User> getUserFollowingByEmail(String email) throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<User> following = null;
+
+        try {
+            connection = DBConnectionManager.getConnection();
+            String sql = "SELECT * FROM Follow WHERE Follower = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+            following = new ArrayList<User>();
+            while (resultSet.next()) {
+                String currentFollowerEmail = resultSet.getString(1);
+                String currentFolloweeEmail = resultSet.getString(2);
+                User user = getUserByEmail(currentFolloweeEmail);
+                following.add(user);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Failed to retrieve following by email.", e);
+        }
+
+        return following;
     }
 }

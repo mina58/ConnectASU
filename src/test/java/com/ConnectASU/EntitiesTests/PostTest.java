@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class PostTest {
 
@@ -22,20 +23,45 @@ public class PostTest {
     public void testGetId() {
         int expectedId = 1;
         int actualId = post.getId();
-        assertEquals(expectedId, actualId);
+        assertEquals(expectedId, actualId, "Expected: " + expectedId + " Actual: " + actualId);
     }
 
     @Test
     public void testGetContent() {
         String expectedContent = "Hello, world!";
         String actualContent = post.getContent();
-        assertEquals(expectedContent, actualContent);
+        assertEquals(expectedContent, actualContent, "Expected: " + expectedContent + " Actual: " + actualContent);
     }
 
     @Test
     public void testGetAuthorName() {
         String expectedAuthorName = "John Doe";
         String actualAuthorName = post.getAuthorName();
-        assertEquals(expectedAuthorName, actualAuthorName);
+        assertEquals(expectedAuthorName, actualAuthorName, "Expected: " + expectedAuthorName + " Actual: " + actualAuthorName);
     }
+
+    @Test
+    public void testEqualsTrue() {
+        Post post2 = new Post(1, "Hello, world!", "John Doe");
+        assertEquals(post, post2, "Expected: " + post + " Actual: " + post2);
+    }
+
+    @Test
+    public void testEqualsFalse() {
+        Post post2 = new Post(2, "This is a post.", "John Doe");
+        assertNotEquals(post, post2, "Expected the post objects to be not equal");
+    }
+
+    @Test
+    public void testEqualsFalse2() {
+        Post post2 = new Post(1, "This is a different post.", "John Doe");
+        assertNotEquals(post, post2, "Expected the post objects to be not equal");
+    }
+
+    @Test
+    public void testEqualsFalse3() {
+        Post post2 = new Post(1, "This is a post.", "Jane Smith");
+        assertNotEquals(post, post2, "Expected the post objects to be not equal");
+    }
+
 }

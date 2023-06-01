@@ -3,6 +3,7 @@ package com.ConnectASU.Service;
 import com.ConnectASU.DAO.GroupDAO;
 import com.ConnectASU.entities.Group;
 import com.ConnectASU.entities.User;
+import com.ConnectASU.exceptions.CannotGetMembersException;
 import com.ConnectASU.exceptions.CannotJoinGroupException;
 import com.ConnectASU.exceptions.CannotLeaveGroupException;
 import com.ConnectASU.exceptions.InvalidGroupNameException;
@@ -20,7 +21,7 @@ public class GroupService {
         return instance;
     }
 
-    public Group createGroup(User admin, String groupName) throws InvalidGroupNameException {
+    public synchronized Group createGroup(User admin, String groupName) throws InvalidGroupNameException {
         validateGroupName(groupName);
         Group group = null;
         try {
@@ -44,7 +45,7 @@ public class GroupService {
         }
     }
 
-    public void deleteGroup(Group group) {
+    public synchronized void deleteGroup(Group group) {
         try {
             GroupDAO groupDAO = new GroupDAO();
             if (group != null)
@@ -74,7 +75,19 @@ public class GroupService {
         }
     }
 
-    public ArrayList<User> getGroupMembers(Group group) {
-        return null;
+    public ArrayList<User> getGroupMembers(Group group) throws CannotGetMembersException {
+        if (group == null) {
+            throw new CannotGetMembersException();
+        }
+        try {
+            GroupDAO groupDAO = new GroupDAO();
+            ArrayList<User> groupMembers = groupDAO.getGroupMembers(group.getId());
+            if (groupMembers.isEmpty()) {
+                throw new CannotGetMembersException();
+            }
+            return groupMembers;
+        } catch (SQLException e) {
+            throw new CannotGetMembersException();
+        }
     }
 }
