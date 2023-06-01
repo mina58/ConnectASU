@@ -1,6 +1,7 @@
 package com.ConnectASU;
 
-import com.ConnectASU.Service.*;
+import com.ConnectASU.Service.GroupService;
+import com.ConnectASU.Service.UserService;
 import com.ConnectASU.entities.User;
 import com.ConnectASU.exceptions.InvalidEmailException;
 import com.ConnectASU.exceptions.InvalidLoginException;
@@ -15,15 +16,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
-public class ScreensController {
+public class ScreensController{
 
 
-    @FXML
-    Label profile_name_label;
+
 
     @FXML
     TextField username_login;
@@ -39,18 +41,15 @@ public class ScreensController {
     TextField create_group_name_text;
 
 
-    //@FXML
-    // ListView<User> followers_list;
 
- // ListController listController = new ListController();
+
     UserService userService1 = UserService.getInstance();
-    SearchService searchService = SearchService.getInstance();
-    PostService postService = PostService.getInstance();
-    CommentService commentService = CommentService.getInstance();
     GroupService groupService = GroupService.getInstance();
+    String username;
+    String password;
 
 
-    User currentUser;
+   static User currentUser;
 
 
     private Stage stage, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10,
@@ -64,7 +63,7 @@ public class ScreensController {
     //Switching between screens
     //In login to sign up
 
-    public void login_to_signin(ActionEvent event1) throws IOException {
+    public void login_to_signin(@org.jetbrains.annotations.NotNull ActionEvent event1) throws IOException {
         root = FXMLLoader.load(ScreensController.class.getResource("sign_in.fxml"));
         stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
         stage.setTitle("Sign Up");
@@ -88,8 +87,11 @@ public class ScreensController {
             email = email_signin.getText();
             password = password_signin.getText();
             name = name_signup.getText();
-
+            //Create Account
             userService1.createAccount(email, name, password);
+            //Show Successful Sign Up and addition in Database
+            successful_signUp(event2);
+
         } catch (InvalidEmailException exception) {
             invalid_signin(event2);
         } catch (InvalidPasswordException exception) {
@@ -106,40 +108,55 @@ public class ScreensController {
         stage2.setScene(scene2);
         stage2.show();
     }
+
+    public void successful_signUp ( ActionEvent event ) throws IOException {
+        root2 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Successful_signUp.fxml")));
+        stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene2 = new Scene(root2);
+        stage2.setTitle("SignUp Successfully");
+        stage2.setScene(scene2);
+        stage2.show();
+
+    }
     //  In login to feed
 
     public void login_to_feed(ActionEvent event3) throws IOException {
-
         try {
-
-            String username;
-            String password;
-
             username = username_login.getText();
             password = password_login.getText();
             currentUser = userService1.logUserIn(username, password);
-           // listController.get_currentUser(currentUser);
+            GroupController.getUser();
+            CreateController.getUser();
+            ListController.getUser();
+            SearchController.getUser();
 
 
         } catch (InvalidLoginException exception) {
 
             invalid_login(event3);
         }
-
-        root3 = FXMLLoader.load(getClass().getResource("Feed.fxml"));
+        root3 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Feed.fxml")));
         stage3 = (Stage) ((Node) event3.getSource()).getScene().getWindow();
         stage3.setTitle("Feed");
         scene3 = new Scene(root3);
         stage3.setScene(scene3);
         stage3.show();
-
-
     }
+
+    public User return_CurrentUser()
+    {
+        System.out.println(currentUser.getName());
+
+        return currentUser;
+    }
+
+    @FXML
+   static Label profile_name_label;
 
     //Invalid Login
     //Backend related
-    public void invalid_login(ActionEvent event4) throws IOException {
-        root5 = FXMLLoader.load(ScreensController.class.getResource("wrong_username.fxml"));
+    public void invalid_login(@NotNull ActionEvent event4) throws IOException {
+        root5 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("wrong_username.fxml")));
         stage5 = (Stage) ((Node) event4.getSource()).getScene().getWindow();
         stage5.setTitle("Invalid login");
         scene5 = new Scene(root5);
@@ -147,10 +164,11 @@ public class ScreensController {
         stage5.show();
     }
 
+
     //From invalid to login
 
-    public void back_to_login(ActionEvent event5) throws IOException {
-        root6 = FXMLLoader.load(ScreensController.class.getResource("log_in.fxml"));
+    public void back_to_login(@NotNull ActionEvent event5) throws IOException {
+        root6 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("log_in.fxml")));
         stage6 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage6.setTitle("Login");
         scene6 = new Scene(root6);
@@ -160,7 +178,7 @@ public class ScreensController {
 
     //Invalid Sign in
     //backend related
-    public void invalid_signin(ActionEvent event5) throws IOException {
+    public void invalid_signin(@NotNull ActionEvent event5) throws IOException {
         root4 = FXMLLoader.load(ScreensController.class.getResource("invald_signup.fxml"));
         stage4 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage4.setTitle("Invalid signin");
@@ -171,7 +189,7 @@ public class ScreensController {
 
     //From invalid to signin
 
-    public void back_to_signin(ActionEvent event5) throws IOException {
+    public void back_to_signin(@NotNull ActionEvent event5) throws IOException {
         root7 = FXMLLoader.load(ScreensController.class.getResource("sign_in.fxml"));
         stage7 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage7.setTitle("Sign");
@@ -184,21 +202,20 @@ public class ScreensController {
 
 
     //From feed to profile
-    public void feed_to_profile(ActionEvent event4) throws IOException {
+    public void feed_to_profile(@NotNull ActionEvent event4) throws IOException {
 
-        root8 = FXMLLoader.load(ScreensController.class.getResource("my_profile.fxml"));
+        root8 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("my_profile.fxml")));
         stage8 = (Stage) ((Node) event4.getSource()).getScene().getWindow();
-        //profile_name.setText ( "Welcome, "+ username );
-
-        stage8.setTitle("User Profile");
+        stage8.setTitle(currentUser.getName()+" Profile");
         scene8 = new Scene(root8);
         stage8.setScene(scene8);
         stage8.show();
+
     }
 
     //Feed to search
-    public void feed_to_search(ActionEvent event5) throws IOException {
-        root9 = FXMLLoader.load(ScreensController.class.getResource("search_page.fxml"));
+    public void feed_to_search(@NotNull ActionEvent event5) throws IOException {
+        root9 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("search_page.fxml")));
         stage9 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage9.setTitle("Search");
         scene9 = new Scene(root9);
@@ -207,8 +224,8 @@ public class ScreensController {
     }
 
     //Feed to Create Post
-    public void feed_to_createPost(ActionEvent event5) throws IOException {
-        root10 = FXMLLoader.load(ScreensController.class.getResource("createpost.fxml"));
+    public void feed_to_createPost(@NotNull ActionEvent event5) throws IOException {
+        root10 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("createpost.fxml")));
         stage10 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage10.setTitle("Create Group");
         scene10 = new Scene(root10);
@@ -217,10 +234,10 @@ public class ScreensController {
     }
 
     //Feed to Groups' Feed
-    public void feed_to_Groups(ActionEvent event5) throws IOException {
-        root11 = FXMLLoader.load(ScreensController.class.getResource("Group_feed.fxml"));
+    public void feed_to_Groups(@NotNull ActionEvent event5) throws IOException {
+        root11 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
         stage11 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
-        stage11.setTitle("Group");
+        stage11.setTitle(currentUser.getName()+"Group");
         scene11 = new Scene(root11);
         stage11.setScene(scene11);
         stage11.show();
@@ -234,7 +251,7 @@ public class ScreensController {
     //Group feed to Feed
     //Same as return to feed
 
-    public void return_to_feed(ActionEvent event5) throws IOException {
+    public void return_to_feed(@NotNull ActionEvent event5) throws IOException {
         root12 = FXMLLoader.load(ScreensController.class.getResource("Feed.fxml"));
         stage12 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage12.setTitle("Feed");
@@ -262,7 +279,7 @@ public class ScreensController {
 
 
     //Group to create group
-    public void go_to_create_group(ActionEvent event8) throws IOException {
+    public void go_to_create_group(@NotNull ActionEvent event8) throws IOException {
 
         root13 = FXMLLoader.load(ScreensController.class.getResource("create_group.fxml"));
         stage13 = (Stage) ((Node) event8.getSource()).getScene().getWindow();
@@ -273,20 +290,20 @@ public class ScreensController {
     }
 
 
-    public void show_invalid(ActionEvent event10) throws IOException {
+    public void show_invalid(@NotNull ActionEvent event10) throws IOException {
 
         root20 = FXMLLoader.load(ScreensController.class.getResource("can't_get_followers.fxml"));
 
         stage20 = (Stage) ((Node) event10.getSource()).getScene().getWindow();
         scene20 = new Scene(root20);
-        stage20.setTitle("Fail");
+        stage20.setTitle("Failed To Get Followers");
         stage20.setScene(scene20);
         stage20.show();
 
     }
 
     //group feed to create group post
-    public void group_to_create_post(ActionEvent event5) throws IOException {
+    public void group_to_create_post(@NotNull ActionEvent event5) throws IOException {
 
         root16 = FXMLLoader.load(ScreensController.class.getResource("create_group_post.fxml"));
         stage16 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
@@ -297,8 +314,8 @@ public class ScreensController {
     }
 
     //from create group to group feed
-    public void back_to_group_feed(ActionEvent event5) throws IOException {
-        root15 = FXMLLoader.load(ScreensController.class.getResource("Group_feed.fxml"));
+    public void back_to_group_feed(@NotNull ActionEvent event5) throws IOException {
+        root15 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
         stage15 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage15.setTitle("Group");
         scene15 = new Scene(root15);
@@ -313,10 +330,10 @@ public class ScreensController {
 
     //my profile to followers
 
-    public void my_profile_to_followers(ActionEvent event5) throws IOException {
-        root17 = FXMLLoader.load(getClass().getResource("following_list.fxml"));
+    public void my_profile_to_followers(@NotNull ActionEvent event5) throws IOException {
+        root17 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("following_list.fxml")));
         stage17 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
-        stage17.setTitle("Group");
+        stage17.setTitle("Follower's List");
         scene17 = new Scene(root17);
         stage17.setScene(scene17);
         stage17.show();
@@ -326,7 +343,7 @@ public class ScreensController {
     public void back_to_profile(ActionEvent event5) throws IOException {
         root18 = FXMLLoader.load(getClass().getResource("my_profile.fxml"));
         stage18 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
-        stage18.setTitle("Group");
+        stage18.setTitle(currentUser.getName()+" Profile");
         scene18 = new Scene(root18);
         stage18.setScene(scene18);
         stage18.show();
@@ -344,6 +361,7 @@ public class ScreensController {
         alert.setHeaderText("Delete Account ?");
         if (alert.showAndWait().get() == ButtonType.OK) {
             stage19 = (Stage) profile_pane.getScene().getWindow();
+            userService1.deleteAccount(currentUser);
             stage19.close();
         }
 
@@ -351,8 +369,27 @@ public class ScreensController {
     }
 
 
-//create group name
+    public void go_to_groups(ActionEvent event) throws IOException{
+        root18 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Groups_List.fxml")));
+        stage18 = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage18.setTitle(currentUser.getName()+" Groups' List");
+        scene18 = new Scene(root18);
+        stage18.setScene(scene18);
+        stage18.show();
 
+    }
 
-
+//    @FXML
+//    ListView<Post> feed_list;
+//    ArrayList<Post> posts;
+//    public void show_feed(ActionEvent event){
+//
+//    }
+//
+//    @Override
+//    public void initialize(URL location, ResourceBundle resources) {
+//        posts = PostService.getInstance().getUserPosts(currentUser);
+//        System.out.println("done with feed");
+//        feed_list.getItems().addAll();
+//    }
 }

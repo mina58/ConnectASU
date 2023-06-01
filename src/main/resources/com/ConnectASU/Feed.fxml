@@ -3,14 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.ScreensController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.ListController">
    <children>
       <AnchorPane layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="736.0" style="-fx-background-color: #B2BEB5;">
          <children>
@@ -28,17 +27,9 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <SplitPane dividerPositions="0.9590592334494773" layoutX="23.0" layoutY="117.0" prefHeight="467.0" prefWidth="693.0" style="-fx-background-color: #B2BEB5;">
+            <SplitPane layoutX="23.0" layoutY="117.0" prefHeight="467.0" prefWidth="693.0" style="-fx-background-color: #B2BEB5;">
                <items>
-                  <AnchorPane fx:id="post_feed" blendMode="SCREEN" minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="659.0" style="-fx-background-color: #B2BEB5; -fx-background-color: #B2BEB5;">
-                     <children>
-                        <ListView fx:id="feed_list" layoutX="-1.0" layoutY="-4.0" prefHeight="470.0" prefWidth="657.0" />
-                     </children></AnchorPane>
-                  <AnchorPane fx:id="scroll_profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <ScrollBar layoutX="-1.0" orientation="VERTICAL" prefHeight="401.0" prefWidth="28.0" style="-fx-background-color: #B2BEB5;" />
-                     </children>
-                  </AnchorPane>
+                  <ListView fx:id="feed_list" editable="true" prefHeight="470.0" prefWidth="657.0" />
                </items>
             </SplitPane>
             <Button fx:id="Go_to_group" layoutX="624.0" layoutY="89.0" mnemonicParsing="false" onAction="#feed_to_Groups" prefHeight="25.0" prefWidth="98.0" text="Groups">
@@ -56,12 +47,17 @@
                   <Font name="Arial Bold Italic" size="14.0" />
                </font>
             </Button>
-            <Label fx:id="profile_name" layoutX="23.0" layoutY="88.0" prefHeight="30.0" prefWidth="213.0" text="Welcome Back,">
+            <Button layoutX="437.0" layoutY="89.0" mnemonicParsing="false" onAction="#feed_to_search" text="Search">
                <font>
-                  <Font name="Arial Bold Italic" size="16.0" />
+                  <Font name="Arial Bold Italic" size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="23.0" layoutY="86.0" prefHeight="25.0" prefWidth="160.0" text="Welcome Back,">
+               <font>
+                  <Font name="Arial Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Button layoutX="437.0" layoutY="89.0" mnemonicParsing="false" onAction="#feed_to_search" text="Search">
+            <Button fx:id="Go_to_profile1" alignment="CENTER" layoutX="266.0" layoutY="84.0" mnemonicParsing="false" onAction="#show_post" prefHeight="26.0" prefWidth="98.0" text="Show Post" textAlignment="CENTER">
                <font>
                   <Font name="Arial Bold Italic" size="14.0" />
                </font>

@@ -21,7 +21,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Button layoutX="-2.0" layoutY="3.0" mnemonicParsing="false" onAction="#return_to_feed" style="-fx-background-color: #40826D;" text="&lt;">
+                  <Button layoutX="-2.0" layoutY="3.0" mnemonicParsing="false" onAction="#back_to_profile" style="-fx-background-color: #40826D;" text="&lt;">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -38,7 +38,7 @@
                   </AnchorPane>
                </items>
             </SplitPane>
-            <SplitMenuButton layoutX="37.0" layoutY="70.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="105.0" text="Groups">
+            <SplitMenuButton fx:id="groupChoiceBox" layoutX="37.0" layoutY="70.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="105.0" text="Groups">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
