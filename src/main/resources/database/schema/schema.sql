@@ -1,0 +1,62 @@
+CREATE TABLE User
+(
+    Email    TEXT PRIMARY KEY,
+    Name     TEXT NOT NULL,
+    Password TEXT NOT NULL
+);
+
+CREATE TABLE Post
+(
+    PostID      INTEGER PRIMARY KEY AUTOINCREMENT,
+    PostContent TEXT NOT NULL,
+    Author      TEXT NOT NULL,
+    GroupID     INTEGER,
+    FOREIGN KEY (Author) REFERENCES User (Email) ON DELETE CASCADE,
+    FOREIGN KEY (GroupID) REFERENCES "Group" (GroupID) ON DELETE CASCADE
+);
+
+CREATE TABLE Comment
+(
+    CommentID      INTEGER PRIMARY KEY AUTOINCREMENT,
+    CommentContent TEXT    NOT NULL,
+    PostID         INTEGER NOT NULL,
+    Author         TEXT    NOT NULL,
+    FOREIGN KEY (PostID) REFERENCES Post (PostID) ON DELETE CASCADE,
+    FOREIGN KEY (Author) REFERENCES User (Email) ON DELETE CASCADE
+);
+
+CREATE TABLE "Group"
+(
+    GroupID   INTEGER PRIMARY KEY AUTOINCREMENT,
+    GroupName TEXT NOT NULL,
+    Admin     TEXT NOT NULL,
+    FOREIGN KEY (Admin) REFERENCES User (Email) ON DELETE CASCADE
+);
+
+CREATE TABLE Follow
+(
+    Follower TEXT,
+    Followee TEXT,
+    PRIMARY KEY (Follower, Followee),
+    FOREIGN KEY (Follower) REFERENCES User (Email) ON DELETE CASCADE,
+    FOREIGN KEY (Followee) REFERENCES User (Email) ON DELETE CASCADE
+);
+
+CREATE TABLE Joins
+(
+    UserEmail TEXT,
+    GroupID   INTEGER,
+    PRIMARY KEY (UserEmail, GroupID),
+    FOREIGN KEY (UserEmail) REFERENCES User (Email) ON DELETE CASCADE,
+    FOREIGN KEY (GroupID) REFERENCES "Group" (GroupID) ON DELETE CASCADE
+);
+
+CREATE TABLE Likes
+(
+    UserEmail TEXT,
+    PostID    INTEGER,
+    PRIMARY KEY (UserEmail, PostID),
+    FOREIGN KEY (UserEmail) REFERENCES User (Email) ON DELETE CASCADE,
+    FOREIGN KEY (PostID) REFERENCES Post (PostID) ON DELETE CASCADE
+)
+
