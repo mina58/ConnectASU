@@ -63,7 +63,7 @@ public class ScreensController{
     //Switching between screens
     //In login to sign up
 
-    public void login_to_signin(@org.jetbrains.annotations.NotNull ActionEvent event1) throws IOException {
+    public void login_to_signin(@NotNull ActionEvent event1) throws IOException {
         root = FXMLLoader.load(ScreensController.class.getResource("sign_in.fxml"));
         stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
         stage.setTitle("Sign Up");
