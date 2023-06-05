@@ -129,26 +129,22 @@ public class ScreensController{
             CreateController.getUser();
             ListController.getUser();
             SearchController.getUser();
+            root3 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Feed.fxml")));
+            stage3 = (Stage) ((Node) event3.getSource()).getScene().getWindow();
+            stage3.setTitle("Feed");
+            scene3 = new Scene(root3);
+            stage3.setScene(scene3);
+            stage3.show();
 
 
         } catch (InvalidLoginException exception) {
 
             invalid_login(event3);
         }
-        root3 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Feed.fxml")));
-        stage3 = (Stage) ((Node) event3.getSource()).getScene().getWindow();
-        stage3.setTitle("Feed");
-        scene3 = new Scene(root3);
-        stage3.setScene(scene3);
-        stage3.show();
+
     }
 
-    public User return_CurrentUser()
-    {
-        System.out.println(currentUser.getName());
 
-        return currentUser;
-    }
 
     @FXML
    static Label profile_name_label;
@@ -179,7 +175,7 @@ public class ScreensController{
     //Invalid Sign in
     //backend related
     public void invalid_signin(@NotNull ActionEvent event5) throws IOException {
-        root4 = FXMLLoader.load(ScreensController.class.getResource("invald_signup.fxml"));
+        root4 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("invald_signup.fxml")));
         stage4 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage4.setTitle("Invalid signin");
         scene4 = new Scene(root4);
@@ -190,7 +186,7 @@ public class ScreensController{
     //From invalid to signin
 
     public void back_to_signin(@NotNull ActionEvent event5) throws IOException {
-        root7 = FXMLLoader.load(ScreensController.class.getResource("sign_in.fxml"));
+        root7 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("sign_in.fxml")));
         stage7 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage7.setTitle("Sign");
         scene7 = new Scene(root7);
@@ -252,7 +248,7 @@ public class ScreensController{
     //Same as return to feed
 
     public void return_to_feed(@NotNull ActionEvent event5) throws IOException {
-        root12 = FXMLLoader.load(ScreensController.class.getResource("Feed.fxml"));
+        root12 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Feed.fxml")));
         stage12 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage12.setTitle("Feed");
         scene12 = new Scene(root12);

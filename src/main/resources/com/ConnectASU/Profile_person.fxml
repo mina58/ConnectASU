@@ -33,12 +33,21 @@
                   <Font name="Arial" size="15.0" />
                </font>
             </Button>
+            <Button fx:id="follow_B1" alignment="CENTER" layoutX="419.0" layoutY="107.0" mnemonicParsing="false" onAction="#unfollow" prefHeight="26.0" prefWidth="105.0" text="Unfollow">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="follow_B11" alignment="CENTER" layoutX="265.0" layoutY="107.0" mnemonicParsing="false" onAction="#show_target_profile_followers" prefHeight="26.0" prefWidth="105.0" text="Show Posts">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <TableView fx:id="profile_table_target" layoutX="107.0" layoutY="204.0" prefHeight="381.0" prefWidth="540.0">
          <columns>
-            <TableColumn fx:id="posts_feed_target" prefWidth="278.0" text="Posts" />
-            <TableColumn fx:id="comment_c_target" prefWidth="261.0" text="Comments" />
+            <TableColumn fx:id="posts_feed_target" prefWidth="539.0" text="Posts" />
          </columns>
       </TableView>
    </children>

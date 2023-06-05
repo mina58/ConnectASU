@@ -19,27 +19,35 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button alignment="CENTER" layoutX="573.0" layoutY="119.0" mnemonicParsing="false" onAction="#my_profile_to_followers" prefHeight="26.0" prefWidth="105.0" text="Followers">
+      <Button alignment="CENTER" layoutX="579.0" layoutY="89.0" mnemonicParsing="false" onAction="#my_profile_to_followers" prefHeight="31.0" prefWidth="108.0" text="Followers">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Button>
-      <ImageView fitHeight="117.0" fitWidth="116.0" layoutX="26.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="102.0" fitWidth="98.0" layoutX="26.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Profile.png" />
          </image>
       </ImageView>
-      <Button fx:id="delete_account_button" alignment="CENTER" layoutX="411.0" layoutY="119.0" mnemonicParsing="false" onAction="#delete__logout" prefHeight="27.0" prefWidth="144.0" text="DeleteAccount">
+      <Button fx:id="delete_account_button" alignment="CENTER" layoutX="411.0" layoutY="89.0" mnemonicParsing="false" onAction="#delete__logout" prefHeight="31.0" prefWidth="148.0" text="DeleteAccount">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="groups" layoutX="289.0" layoutY="117.0" mnemonicParsing="false" onAction="#back_to_group_feed" prefHeight="31.0" prefWidth="108.0" text="Groups" />
-      <TableView fx:id="profile_table" layoutX="97.0" layoutY="194.0" prefHeight="381.0" prefWidth="540.0">
+      <TableView fx:id="profile_table" layoutX="70.0" layoutY="160.0" prefHeight="353.0" prefWidth="590.0">
         <columns>
-          <TableColumn fx:id="posts_feed" prefWidth="278.0" text="Posts" />
-          <TableColumn fx:id="comment_c" prefWidth="261.0" text="Comments" />
+          <TableColumn fx:id="posts_feed" prefWidth="589.0" text="Posts" />
         </columns>
       </TableView>
+      <Button alignment="CENTER" layoutX="263.0" layoutY="89.0" mnemonicParsing="false" onAction="#my_profile_to_create_Group" prefHeight="31.0" prefWidth="129.0" text="Create Group">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="delete_account_button1" alignment="CENTER" layoutX="293.0" layoutY="531.0" mnemonicParsing="false" onAction="#show_post_profile" prefHeight="31.0" prefWidth="148.0" text="Show Post">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
