@@ -2,14 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.ListController">
    <children>
       <AnchorPane layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="736.0" style="-fx-background-color: #B2BEB5;">
          <children>
@@ -27,41 +27,36 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <SplitPane dividerPositions="0.9590592334494773" layoutX="23.0" layoutY="117.0" prefHeight="467.0" prefWidth="693.0" style="-fx-background-color: #B2BEB5;">
-               <items>
-                  <AnchorPane fx:id="post_feed" blendMode="SCREEN" minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="659.0" style="-fx-background-color: #B2BEB5; -fx-background-color: #B2BEB5;" />
-                  <AnchorPane fx:id="scroll_profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <ScrollBar layoutX="-1.0" orientation="VERTICAL" prefHeight="401.0" prefWidth="28.0" style="-fx-background-color: #B2BEB5;" />
-                     </children>
-                  </AnchorPane>
-               </items>
-            </SplitPane>
-            <Button fx:id="Go_to_group" layoutX="624.0" layoutY="89.0" mnemonicParsing="false" onAction="#feed_to_Groups" prefHeight="25.0" prefWidth="98.0" text="Groups">
+            <Button fx:id="Go_to_profile" alignment="CENTER" layoutX="612.0" layoutY="98.0" mnemonicParsing="false" onAction="#feed_to_profile" prefHeight="26.0" prefWidth="98.0" text="Profile" textAlignment="CENTER">
                <font>
                   <Font name="Arial Bold Italic" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="Go_to_profile" alignment="CENTER" layoutX="513.0" layoutY="89.0" mnemonicParsing="false" onAction="#feed_to_profile" prefHeight="26.0" prefWidth="98.0" text="Profile" textAlignment="CENTER">
+            <Button fx:id="create_profile" layoutX="384.0" layoutY="99.0" mnemonicParsing="false" onAction="#feed_to_createPost_Feed" text="+">
                <font>
                   <Font name="Arial Bold Italic" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="create_profile" layoutX="399.0" layoutY="89.0" mnemonicParsing="false" onAction="#feed_to_createPost" text="+">
+            <Button layoutX="536.0" layoutY="98.0" mnemonicParsing="false" onAction="#feed_to_search" text="Search">
                <font>
                   <Font name="Arial Bold Italic" size="14.0" />
                </font>
             </Button>
-            <Label fx:id="profile_name" layoutX="23.0" layoutY="88.0" prefHeight="30.0" prefWidth="213.0" text="Welcome Back,">
+            <Label layoutX="23.0" layoutY="86.0" prefHeight="25.0" prefWidth="160.0" text="Welcome Back,">
                <font>
-                  <Font name="Arial Bold Italic" size="16.0" />
+                  <Font name="Arial Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Button layoutX="437.0" layoutY="89.0" mnemonicParsing="false" onAction="#feed_to_search" text="Search">
+            <Button fx:id="Go_to_profile1" alignment="CENTER" layoutX="425.0" layoutY="98.0" mnemonicParsing="false" onAction="#show_post" prefHeight="26.0" prefWidth="98.0" text="Show Post" textAlignment="CENTER">
                <font>
                   <Font name="Arial Bold Italic" size="14.0" />
                </font>
             </Button>
+            <TableView fx:id="feed_table" layoutX="32.0" layoutY="135.0" prefHeight="430.0" prefWidth="678.0">
+              <columns>
+                <TableColumn fx:id="feed_post" editable="false" prefWidth="676.6370468139648" text="Posts" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
    </children>

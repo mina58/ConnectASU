@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #B2BEB5;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ConnectASU.ScreensController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="254.0" style="-fx-background-color: #0047AB; -fx-background-color: #EADDCA; -fx-background-color: #D3D3D3; -fx-background-color: #E5E4E2;">
          <children>
@@ -20,7 +20,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TextField layoutX="436.0" layoutY="147.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
+      <TextField fx:id="email_signin" layoutX="436.0" layoutY="147.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
       <Label layoutX="342.0" layoutY="150.0" text="Email">
          <font>
             <Font name="Arial" size="17.0" />
@@ -38,6 +38,6 @@
          </font>
       </Label>
       <TextField fx:id="name_signup" layoutX="436.0" layoutY="79.0" style="-fx-background-color: #d7e4bc; -fx-background-color: #B6B6B4; -fx-background-color: #E5E4E2;" />
-      <PasswordField layoutX="436.0" layoutY="212.0" style="-fx-background-color: #E5E4E2;" />
+      <PasswordField fx:id="password_signin" layoutX="436.0" layoutY="212.0" style="-fx-background-color: #E5E4E2;" />
    </children>
 </AnchorPane>
