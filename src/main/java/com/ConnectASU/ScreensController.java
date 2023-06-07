@@ -24,11 +24,11 @@ import java.util.Objects;
 public class ScreensController {
 
     private Stage stage, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10,
-            stage11, stage12, stage13, stage15, stage16, stage17, stage18, stage19, stage20;
+            stage11, stage12, stage13, stage15, stage16, stage17, stage18, stage19;
     private Scene scene, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10,
-            scene11, scene12, scene13, scene15, scene16, scene17, scene18, scene19, scene20;
+            scene11, scene12, scene13, scene15, scene16, scene17, scene18;
     private Parent root, root2, root3, root4, root5, root6, root7, root8, root9, root10,
-            root11, root12, root13, root15, root16, root17, root18, root20;
+            root11, root12, root13, root15, root16, root17, root18;
 
 
     String username;
