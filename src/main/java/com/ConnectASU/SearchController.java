@@ -31,21 +31,48 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SearchController  implements Initializable {
+public class SearchController implements Initializable {
 
-     Stage stage, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10,
-            stage11, stage12, stage13, stage14, stage15, stage16, stage17, stage18, stage19, stage20;
-     Scene scene, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10,
-            scene11, scene12, scene13, scene14, scene15, scene16, scene17, scene18, scene19, scene20;
-    Parent root, root2, root3, root4, root5, root6, root7, root8, root9, root10,
-            root11, root12, root13, root14, root15, root16, root17, root18, root19, root20;
+    Stage stage, stage12;
+    Scene scene, scene12;
+    Parent root, root12;
 
-    static User  currentUser ;
-    public static void getUser(){
+    static User currentUser;
+    static User targetUser;
+    static Group targetgroup;
+    String post_text;
+
+
+    PostService postService = PostService.getInstance();
+
+
+    @FXML
+    TextField search_text_area;
+    @FXML
+    TableView<User> search_table;
+    @FXML
+    TableView<Group> group_tabel;
+    @FXML
+    TableColumn<User, String> user_column;
+    @FXML
+    TableColumn<Group, String> group_column;
+    @FXML
+    TextArea create_post_group;
+    @FXML
+    TextArea group_post;
+
+
+    ArrayList<Group> group_result;
+    ArrayList<User> user_result;
+    ObservableList<User> userList;
+    ObservableList<Group> groupList;
+
+
+    public static void getUser() {
         currentUser = ScreensController.currentUser;
 
     }
-    PostService postService = PostService.getInstance();
+
 
     public void return_to_feed(@NotNull ActionEvent event5) throws IOException {
         root12 = FXMLLoader.load(Objects.requireNonNull(SearchController.class.getResource("Feed.fxml")));
@@ -56,23 +83,6 @@ public class SearchController  implements Initializable {
         stage12.show();
     }
 
-    @FXML
-    TextField search_text_area;
-
-    ArrayList<Group> group_result;
-    ArrayList<User> user_result;
-
-    @FXML
-    TableView<User> search_table;
-    @FXML
-    TableView<Group> group_tabel;
-    @FXML
-    TableColumn<User, String> user_column;
-    @FXML
-    TableColumn<Group, String> group_column;
-
-    ObservableList<User> userList;
-    ObservableList<Group> groupList;
 
     public void search(ActionEvent event) {
         String search = search_text_area.getText();
@@ -125,60 +135,22 @@ public class SearchController  implements Initializable {
     }
 
 
-    static User targetUser;
-    static Group targetgroup;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        user_column.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        group_column.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-//        search_table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
-//
-//            @Override
-//            public void changed(ObservableValue<? extends User> observableValue, User user, User t1) {
-//
-//                targetUser = search_table.getSelectionModel().getSelectedItem();
-//                System.out.println("targetUser: " + targetUser.getName());
-//
-//            }
-//        });
-//        group_tabel.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Group>() {
-//
-//            @Override
-//            public void changed(ObservableValue<? extends Group> observableValue, Group group, Group t1) {
-//                targetgroup = group_tabel.getSelectionModel().getSelectedItem();
-//                ListController.getTargetGroup();
-//                GroupController.getGroup();
-//                CreateController.getGroup(targetgroup);
-//                CreateController.getUser();
-//
-//                System.out.println("targetGroup: " + targetgroup.getName());
-//
-//            }
-//
-//
-//        });
-
 
     }
-    @FXML
-    TextArea create_post_group;
-    @FXML
-            TextArea group_post;
 
 
-
-    String post_text;
-    public void create_group_post(ActionEvent event1) throws IOException{
+    public void create_group_post(ActionEvent event1) throws IOException {
         post_text = create_post_group.getText();
 
-        System.out.println("the target group in create post is: " +targetgroup.getName());
+        System.out.println("the target group in create post is: " + targetgroup.getName());
 
         try {
-            postService.createPost(post_text,currentUser,targetgroup);
-            root= FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
+            postService.createPost(post_text, currentUser, targetgroup);
+            root = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
             stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
-            stage.setTitle(targetgroup.getName() +"'s Feed");
+            stage.setTitle(targetgroup.getName() + "'s Feed");
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -192,10 +164,12 @@ public class SearchController  implements Initializable {
         }
 
     }
+
+
     public void back_to_group_feed(javafx.event.ActionEvent event5) throws IOException {
-        root= FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
         stage = (Stage) ((Node) event5.getSource()).getScene().getWindow();
-        stage.setTitle(targetgroup.getName()+"'s Feed");
+        stage.setTitle(targetgroup.getName() + "'s Feed");
 
         scene = new Scene(root);
         stage.setScene(scene);
@@ -206,7 +180,7 @@ public class SearchController  implements Initializable {
     public void search_to_person_profile(ActionEvent event) throws IOException {
         root12 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Profile_person.fxml")));
         stage12 = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage12.setTitle(targetUser.getName()+"'s " +"Profile");
+        stage12.setTitle(targetUser.getName() + "'s " + "Profile");
 
         ListController.getTargetUser();
         scene12 = new Scene(root12);
@@ -214,11 +188,12 @@ public class SearchController  implements Initializable {
         stage12.show();
     }
 
-    public void search_to_group(ActionEvent event) throws IOException{
+
+    public void search_to_group(ActionEvent event) throws IOException {
         root12 = FXMLLoader.load(Objects.requireNonNull(SearchController.class.getResource("Group_feed.fxml")));
         stage12 = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage12.setTitle(targetgroup.getName()+"'s Feed");
-       // System.out.println(targetgroup.getName()+"1");
+        stage12.setTitle(targetgroup.getName() + "'s Feed");
+        // System.out.println(targetgroup.getName()+"1");
         GroupController.getGroup();
 
         scene12 = new Scene(root12);

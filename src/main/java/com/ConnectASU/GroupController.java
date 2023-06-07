@@ -28,34 +28,51 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+//Class that control the action of the Group
 public class GroupController implements Initializable {
-
-    //Class that control the action of the Group
-
-    static Group group;
-
-    public static void getGroup() {
-        group = SearchController.targetgroup;
-        // System.out.println("target of group contoller group "+ group.getName());
-    }
-
-    PostService postService = PostService.getInstance();
 
     Stage stage, stage1, stage12;
     Scene scene, scene1, scene12;
     Parent root, root1, root12;
 
 
+    static Group group;
+    static User user;
+    static User follower;
+
+
+    @FXML
+    TableView<User> followers_table;
+    @FXML
+    TableColumn<User, String> followers_c;
+    @FXML
+    TextField create_group_name_text;
+    @FXML
+    TextArea create_post_text_group;
+    @FXML
+    AnchorPane individual_group;
+
+
+    ObservableList<User> followers_list;
+    ArrayList<User> followers;
+
+
+    PostService postService = PostService.getInstance();
+
+
     public GroupController() {
     }
 
-    static User user;
+
+    public static void getGroup() {
+        group = SearchController.targetgroup;
+    }
+
 
     public static void getUser() {
         user = ScreensController.currentUser;
 
         System.out.println(user.getName());
-
     }
 
 
@@ -68,18 +85,6 @@ public class GroupController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    TableView<User> followers_table;
-
-    @FXML
-    TableColumn<User, String> followers_c;
-
-
-    ObservableList<User> followers_list;
-    ArrayList<User> followers;
-
-    static User follower;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -89,31 +94,20 @@ public class GroupController implements Initializable {
         } catch (CannotGetFollowersException e) {
             System.out.println("error");
         }
-        followers_list= FXCollections.observableArrayList(followers);
+        followers_list = FXCollections.observableArrayList(followers);
         if (followers != null) {
-
-//            followers_table.setItems(followers_list);
-//            followers_c.setCellValueFactory(new PropertyValueFactory<>("name"));
-
             followers_table.getSelectionModel().selectedItemProperty().addListener((observableValue, user, t1) -> {
                 follower = followers_table.getSelectionModel().getSelectedItem();
                 System.out.println(follower.getName());
             });
         }
 
-        followers_c.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+        followers_c.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
         followers_table.setItems(followers_list);
-
-        //////////////////////////////////////////////////////////////////////////////////
-
-
     }
 
+
     //   Create Group
-    @FXML
-    TextField create_group_name_text;
-
-
     public void create_group(javafx.event.ActionEvent event11) throws IOException {
         System.out.println(user.getName());
 
@@ -140,9 +134,6 @@ public class GroupController implements Initializable {
         stage1.show();
     }
 
-    @FXML
-    TextArea create_post_text_group;
-
 
     public void back_to_group_feed(ActionEvent event5) throws IOException {
         root1 = FXMLLoader.load(Objects.requireNonNull(GroupController.class.getResource("Group_feed.fxml")));
@@ -153,8 +144,6 @@ public class GroupController implements Initializable {
         stage1.show();
     }
 
-    @FXML
-    AnchorPane individual_group;
 
     public void delete_group(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

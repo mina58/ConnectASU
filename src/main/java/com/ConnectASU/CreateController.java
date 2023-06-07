@@ -21,32 +21,45 @@ import java.util.Objects;
 
 import static com.ConnectASU.ScreensController.currentUser;
 
-public class CreateController
-{
+public class CreateController {
 
-    Stage stage,stage1;
-     Scene scene,scene1;
-    Parent root,root1;
+    Stage stage, stage1;
+    Scene scene, scene1;
+    Parent root, root1;
+
+
+    static Group targetGroup;
+    static User user;
+
+
+    @FXML
+    TextField create_group_name_text;
+    @FXML
+    TextArea Create_post_feed;
+
+
+    PostService postService2 = PostService.getInstance();
+
+
     public CreateController() {
         ScreensController screensController = new ScreensController();
         // User currentUser = screensController.return_CurrentUser();
     }
-    static Group targetGroup;
-    public static void getGroup(Group target_group){
-       targetGroup = target_group;
+
+
+    public static void getGroup(Group target_group) {
+        targetGroup = target_group;
     }
-    static User user;
-    public static void getUser(){
+
+
+    public static void getUser() {
         user = ScreensController.currentUser;
         //To test that the user is available for this controller
         // ScreensController.profile_name_label.setText(user.getName());
         System.out.println(user.getName());
-
     }
-    @FXML
-    TextField create_group_name_text;
 
-PostService postService2 = PostService.getInstance();
+
     public void create_group(javafx.event.ActionEvent event11) throws IOException {
         System.out.println(currentUser.getName());
 
@@ -54,8 +67,8 @@ PostService postService2 = PostService.getInstance();
         try {
             group_name = create_group_name_text.getText();
 
-            GroupService.getInstance().createGroup(user,group_name);
-            back_to_group_feed(event11);
+            GroupService.getInstance().createGroup(user, group_name);
+            back_to_feed(event11);
 
         } catch (InvalidGroupNameException e) {
 
@@ -69,14 +82,13 @@ PostService postService2 = PostService.getInstance();
 
     }
 
-    @FXML
-    TextArea Create_post_feed;
-    public void create_post_feed(ActionEvent event) throws IOException{
+
+    public void create_post_feed(ActionEvent event) throws IOException {
         String post;
         post = Create_post_feed.getText();
         System.out.println("do you get here ");
         try {
-            postService2.createPost(post, user,null);
+            postService2.createPost(post, user, null);
             back_to_feed(event);
         } catch (CannotCreatePostException e) {
             root = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("invald_post.fxml")));
@@ -87,34 +99,10 @@ PostService postService2 = PostService.getInstance();
             stage.show();
         }
     }
-//    @FXML
-//    TextArea create_post_text_group;
-//
-//
-//
-//    public void create_group_post(ActionEvent event) throws IOException{
-//        String post_text;
-//        post_text = create_post_text_group.getText();
-//
-//        System.out.println("the target group in create post is: " +targetGroup.getName());
-//
-//            try {
-//                PostService.getInstance().createPost(post_text,user,targetGroup);
-//            } catch (CannotCreatePostException e) {
-//                root = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("invald_post.fxml")));
-//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                stage.setTitle("Failed to Create Post");
-//                scene = new Scene(root);
-//                stage.setScene(scene);
-//                stage.show();
-//            }
-//
-//    }
-
 
 
     public void back_to_group_feed(javafx.event.ActionEvent event5) throws IOException {
-        root1= FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
+        root1 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
         stage1 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage1.setTitle("Group");
 
@@ -122,16 +110,10 @@ PostService postService2 = PostService.getInstance();
         stage1.setScene(scene1);
         stage1.show();
     }
-    public void back_to_profile(ActionEvent event5) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("my_profile.fxml"));
-        stage = (Stage) ((Node) event5.getSource()).getScene().getWindow();
-        stage.setTitle(user.getName()+" Profile");
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+
+
     public void back_to_feed(javafx.event.ActionEvent event5) throws IOException {
-        root1= FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Feed.fxml")));
+        root1 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Feed.fxml")));
         stage1 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage1.setTitle("Feed");
         scene1 = new Scene(root1);
