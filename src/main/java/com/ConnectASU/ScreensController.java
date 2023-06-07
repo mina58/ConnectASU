@@ -47,8 +47,6 @@ public class ScreensController {
     @FXML
     TextField email_signin;
     @FXML
-    private Button delete_account_button;
-    @FXML
     private AnchorPane profile_pane;
 
 
