@@ -32,72 +32,64 @@ import java.util.ResourceBundle;
 public class PostController implements Initializable {
 
 
-    Stage stage11;
-    Stage stage12;
-    Stage stage13;
-    Stage stage14;
-
-
-    Stage stage15;
-
-
-    Scene scene11;
-    Scene scene12;
-    Scene scene13;
-    Scene scene14;
-
-    Scene scene15;
-
-    Parent root11;
-    Parent root12;
-    Parent root13;
-    Parent root14;
-
-    Parent root15;
+    Stage stage11, stage12, stage13, stage14, stage15;
+    Scene scene11, scene12, scene13, scene14, scene15;
+    Parent root11, root12, root13, root14, root15;
 
     static Post post;
     static Post profile_post;
     static Post group_post;
     static User user;
     static Group group;
+    String comment;
+    Comment comment_post;
+
+    @FXML
+    TextField comment_text_area;
+    @FXML
+    Button like_button;
+    @FXML
+    Button comment_button;
+    @FXML
+    TableView<Comment> comments_table;
+    @FXML
+    TableColumn<Comment, String> comments_column = new TableColumn<>("Comments");
+
+
+    ObservableList<Comment> comments_list;
+    ArrayList<Comment> comments_array;
+
+
+    ScreensController screensController = new ScreensController();
+
 
     public PostController() {
     }
 
+
     public void getPost() {
         post = ListController.post_feed;
-
     }
+
 
     public void get_profile_post() {
         profile_post = ListController.profile_post;
     }
 
+
     public void get_group_post() {
         group_post = ListController.group_post_feed;
     }
+
 
     public void getUser() {
         user = ScreensController.currentUser;
     }
 
+
     public void getGroup() {
         group = SearchController.targetgroup;
-
     }
-
-    static ArrayList<User> members_2;
-//    public void getMembers(){
-//        try {
-//            members_2 = new ArrayList<>(GroupService.getInstance().getGroupMembers(group));
-//        } catch (CannotGetMembersException e) {
-//            System.out.println("yarab n5las");
-//        }
-//    }
-
-
-    @FXML
-    TextField comment_text_area;
 
 
     public void show_post_2(ActionEvent event) throws IOException {
@@ -121,8 +113,8 @@ public class PostController implements Initializable {
         }
 
         System.out.println(post.getContent());
-        //post_text_area.setText(post.getContent());
     }
+
 
     public void show_post_3(ActionEvent event) throws IOException {
         root14 = FXMLLoader.load((Objects.requireNonNull(PostController.class.getResource("Group_post.fxml"))));
@@ -145,8 +137,8 @@ public class PostController implements Initializable {
         }
 
         System.out.println(group_post.getContent());
-
     }
+
 
     public void show_post_4(ActionEvent event) throws IOException {
         root11 = FXMLLoader.load((Objects.requireNonNull(PostController.class.getResource("Profile_Post.fxml"))));
@@ -167,20 +159,9 @@ public class PostController implements Initializable {
             stage11.setScene(scene11);
             stage11.show();
         }
-
-
         System.out.println(profile_post.getContent());
-        //post_text_area.setText(post.getContent());
     }
 
-//
-
-    @FXML
-    Button like_button;
-    @FXML
-    Button comment_button;
-
-    ScreensController screensController = new ScreensController();
 
     // CommentService commentService = CommentService.getInstance();
     public void like_post(ActionEvent event) {
@@ -195,6 +176,8 @@ public class PostController implements Initializable {
         }
 
     }
+
+
     public void like_profile_post(ActionEvent event) {
         try {
 
@@ -205,8 +188,9 @@ public class PostController implements Initializable {
         } catch (CannotLikeException e) {
             System.out.println("Can't like post or like ");
         }
-
     }
+
+
     public void like_group_post(ActionEvent event) {
         try {
 
@@ -217,19 +201,18 @@ public class PostController implements Initializable {
         } catch (CannotLikeException e) {
             System.out.println("Can't like post or like ");
         }
-
     }
+
+
     public void back_to_profile(ActionEvent event5) throws IOException {
         root11 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("my_profile.fxml")));
         stage11 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
-        stage11.setTitle(user.getName()+" Profile");
+        stage11.setTitle(user.getName() + " Profile");
         scene11 = new Scene(root11);
         stage11.setScene(scene11);
         stage11.show();
     }
 
-    String comment;
-    Comment comment_post;
 
     public void comment_post(ActionEvent event) throws IOException {
 
@@ -242,7 +225,9 @@ public class PostController implements Initializable {
         }
         screensController.return_to_feed(event);
     }
-    public void comment_profile_post(){
+
+
+    public void comment_profile_post() {
         comment = comment_text_area.getText();
         System.out.println(comment);
         try {
@@ -251,7 +236,9 @@ public class PostController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    public void comment_group_post(){
+
+
+    public void comment_group_post() {
         comment = comment_text_area.getText();
         System.out.println(comment);
         try {
@@ -260,6 +247,7 @@ public class PostController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
 
     public void return_to_feed(@NotNull ActionEvent event5) throws IOException {
         root12 = FXMLLoader.load(Objects.requireNonNull(PostController.class.getResource("Feed.fxml")));
@@ -270,115 +258,65 @@ public class PostController implements Initializable {
         stage12.show();
     }
 
-    @FXML
-    TableView<Comment> comments_table;
-    @FXML
-    TableColumn<Comment, String> comments_column = new TableColumn<>("Comments");
-    ;
-    ObservableList<Comment> comments_list;
-    ArrayList<Comment> comments_array;
 
-    @FXML
-    TableView<Comment> comments_table_profile;
-    @FXML
-    TableColumn<Comment , String> comments_column_profile = new TableColumn<>("Comments");
-    ObservableList<Comment> comments_list_profile;
-    ArrayList<Comment> comments_array_profile;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            comments_array = CommentService.getInstance().getPostComments(post);
+        } catch (CannotGetCommentsException e) {
+            System.out.println("Failed to retrieve comments for this post");
+            //comments_array = new ArrayList<>();
+        }
 
-@Override
-public void initialize(URL location, ResourceBundle resources) {
-    try {
-        comments_array = CommentService.getInstance().getPostComments(post);
-    } catch (CannotGetCommentsException e) {
-        System.out.println("Failed to retrieve comments for this post");
-       //comments_array = new ArrayList<>();
+        if (comments_array != null) {
+            comments_list = FXCollections.observableArrayList(comments_array);
+            comments_table.setItems(comments_list);
+        } else {
+            comments_list = FXCollections.observableArrayList(); // Initialize an empty list if comments_array is null
+            comments_table.setItems(comments_list);
+        }
+
+        comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        try {
+            comments_array = CommentService.getInstance().getPostComments(profile_post);
+        } catch (CannotGetCommentsException e) {
+            System.out.println("Failed to retrieve comments for this post");
+            //comments_array = new ArrayList<>();
+        }
+
+        if (comments_array != null) {
+            comments_list = FXCollections.observableArrayList(comments_array);
+            comments_table.setItems(comments_list);
+        } else {
+            comments_list = FXCollections.observableArrayList(); // Initialize an empty list if comments_array is null
+            comments_table.setItems(comments_list);
+        }
+
+        comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        try {
+            comments_array = CommentService.getInstance().getPostComments(group_post);
+        } catch (CannotGetCommentsException e) {
+            System.out.println("Failed to retrieve comments for this post");
+            //comments_array = new ArrayList<>();
+        }
+
+        if (comments_array != null) {
+            comments_list = FXCollections.observableArrayList(comments_array);
+            comments_table.setItems(comments_list);
+        } else {
+            comments_list = FXCollections.observableArrayList(); // Initialize an empty list if comments_array is null
+            comments_table.setItems(comments_list);
+        }
+
+        comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
+        ////////////////////////////////////////////////////////////////////////////////////////////
     }
-
-    if (comments_array != null) {
-        comments_list = FXCollections.observableArrayList(comments_array);
-        comments_table.setItems(comments_list);
-    } else {
-        comments_list = FXCollections.observableArrayList(); // Initialize an empty list if comments_array is null
-        comments_table.setItems(comments_list);
-    }
-
-    comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
-    ////////////////////////////////////////////////////////////////////////////////////////////
-//    try {
-//        comments_array_profile =CommentService.getInstance().getPostComments(profile_post);
-//    } catch (CannotGetCommentsException e) {
-//        System.out.println("Failed to retrieve comments for this post");
-//        comments_array_profile = new ArrayList<>();
-//    }
-//    if (comments_array_profile != null) {
-//        comments_list_profile = FXCollections.observableArrayList(comments_array_profile);
-//        comments_table_profile.setItems(comments_list_profile);
-//    }
-//    else {
-//        comments_list_profile = FXCollections.observableArrayList();
-//        comments_table_profile.setItems(comments_list_profile);
-//    }
-//    comments_column_profile.setCellValueFactory(new PropertyValueFactory<Comment,String>("Content"));
-//
-//    try {
-//        comments_array_profile = CommentService.getInstance().getPostComments(profile_post);
-//    } catch (CannotGetCommentsException e) {
-//        System.out.println("Failed to retrieve comments for this post");
-//       // comments_array_profile = new ArrayList<>();
-//    }
-//
-//    if (comments_array_profile != null) {
-//        comments_list_profile = FXCollections.observableArrayList(comments_array_profile);
-//        if (comments_table_profile != null) {
-//            comments_table_profile.setItems(comments_list_profile);
-//        }
-//        if (comments_column_profile != null) {
-//            comments_column_profile.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
-//        }
-//    } else {
-//        comments_list_profile = FXCollections.observableArrayList();
-//        if (comments_table_profile != null) {
-//            comments_table_profile.setItems(comments_list_profile);
-//        }
-//    }
-
-    try {
-        comments_array = CommentService.getInstance().getPostComments(profile_post);
-    } catch (CannotGetCommentsException e) {
-        System.out.println("Failed to retrieve comments for this post");
-        //comments_array = new ArrayList<>();
-    }
-
-    if (comments_array != null) {
-        comments_list = FXCollections.observableArrayList(comments_array);
-        comments_table.setItems(comments_list);
-    } else {
-        comments_list = FXCollections.observableArrayList(); // Initialize an empty list if comments_array is null
-        comments_table.setItems(comments_list);
-    }
-
-    comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
-    ////////////////////////////////////////////////////////////////////////////////////////////
-
-    try {
-        comments_array = CommentService.getInstance().getPostComments(group_post);
-    } catch (CannotGetCommentsException e) {
-        System.out.println("Failed to retrieve comments for this post");
-        //comments_array = new ArrayList<>();
-    }
-
-    if (comments_array != null) {
-        comments_list = FXCollections.observableArrayList(comments_array);
-        comments_table.setItems(comments_list);
-    } else {
-        comments_list = FXCollections.observableArrayList(); // Initialize an empty list if comments_array is null
-        comments_table.setItems(comments_list);
-    }
-
-    comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
-    ////////////////////////////////////////////////////////////////////////////////////////////
-}
-
 
 
     public void back_to_group_feed(@NotNull ActionEvent event5) throws IOException {
