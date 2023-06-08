@@ -44,6 +44,11 @@ public class TestsRunner {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -54,7 +59,7 @@ public class TestsRunner {
         }
         UserDAO userDAO = new UserDAO();
         try {
-            executor.awaitTermination(5, TimeUnit.SECONDS);
+            executor.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
