@@ -19,7 +19,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button cancelButton="true" layoutX="433.0" layoutY="343.0" mnemonicParsing="false" onAction="#back_to_feed" text="Cancel" textFill="#a83a3a">
+      <Button cancelButton="true" layoutX="433.0" layoutY="343.0" mnemonicParsing="false" onAction="#back_to_group_feed" text="Cancel" textFill="#a83a3a">
          <font>
             <Font size="14.0" />
          </font>
