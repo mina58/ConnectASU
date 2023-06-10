@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.FOLLOW_TABLE;
 import static com.ConnectASU.DAO.DBUtilities.DatabaseTableNames.USER_TABLE;
 
 public class UserDAO {
@@ -131,7 +132,7 @@ public class UserDAO {
 
         try {
             connection = DBConnectionManager.getConnection();
-            String sql = "INSERT INTO Follow (Follower, Followee) VALUES (?, ?)";
+            String sql = "INSERT INTO " + FOLLOW_TABLE + " (Follower, Followee) VALUES (?, ?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, followerEmail);
             statement.setString(2, followeeEmail);
@@ -154,7 +155,7 @@ public class UserDAO {
 
         try {
             connection = DBConnectionManager.getConnection();
-            String sql = "DELETE FROM Follow WHERE Follower = ? AND Followee = ?";
+            String sql = "DELETE FROM " + FOLLOW_TABLE + " WHERE Follower = ? AND Followee = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, followerEmail);
             statement.setString(2, followeeEmail);
