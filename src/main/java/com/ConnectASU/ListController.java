@@ -107,19 +107,19 @@ public class ListController implements Initializable {
 
     }
 
-
+    //Function to get targetGroup from search
     public static void getTargetGroup() {
         group = SearchController.targetgroup;
     }
 
-
+    //Function to get targetUser from search
     public static void getTargetUser() {
         targetUser = SearchController.targetUser;
 
     }
 
 
-    //Feed to Create Post
+    //Feed to Create Group Post
     public void feed_to_createPost(@NotNull ActionEvent event5) throws IOException {
         root10 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("create_group_post.fxml")));
         stage10 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
@@ -129,7 +129,7 @@ public class ListController implements Initializable {
         stage10.show();
     }
 
-
+    //Feed to Create post
     public void feed_to_createPost_Feed(@NotNull ActionEvent event5) throws IOException {
         root10 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("createpost.fxml")));
         stage10 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
@@ -140,7 +140,7 @@ public class ListController implements Initializable {
     }
 
 
-    //Feed to search
+    //Feed to search screen
     public void feed_to_search(@NotNull ActionEvent event5) throws IOException {
         root9 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("search_page.fxml")));
         stage9 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
@@ -150,9 +150,8 @@ public class ListController implements Initializable {
         stage9.show();
     }
 
-
+    //Feed to currentUser profile
     public void feed_to_profile(@NotNull ActionEvent event4) throws IOException {
-
         root8 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("my_profile.fxml")));
         stage8 = (Stage) ((Node) event4.getSource()).getScene().getWindow();
         stage8.setTitle(currentUser.getName() + " Profile");
@@ -217,6 +216,7 @@ public class ListController implements Initializable {
             feed_post.setCellValueFactory(new PropertyValueFactory<>("content"));
         }
         ////////////////////////////////////////////////////////////////////////////////////
+        //Group Feed//
         try {
             posts_group = PostService.getInstance().getGroupPosts(SearchController.targetgroup);
         } catch (CannotGetGroupPostsException e) {
@@ -244,7 +244,7 @@ public class ListController implements Initializable {
         }
     }
 
-
+    //Function that initialize members table to show the targetGroup's members
     public void show_members(ActionEvent event) throws IOException {
         try {
             members_users = new ArrayList<>(GroupService.getInstance().getGroupMembers(group));
@@ -267,7 +267,7 @@ public class ListController implements Initializable {
             System.out.println("No group members available for group " + group);
         }
     }
-
+    //Function that initialize followers' table to show the targetUser's followers
     public void show_target_profile_followers(ActionEvent event) throws IOException {
         System.out.println(targetUser.getName() + "here in show posts ");
         try {
@@ -284,7 +284,7 @@ public class ListController implements Initializable {
         profile_table_target.setItems(profile_post_list);
     }
 
-
+    //Function that uses UserService to follow targetUser
     public void follow(ActionEvent event) throws IOException {
         String follow = follow_B.getText();
         System.out.println(follow);
@@ -301,7 +301,7 @@ public class ListController implements Initializable {
             stage12.show();
         }
     }
-
+    //Function that uses UserService to unfollow targetUser
     public void unfollow(ActionEvent event) {
         try {
             UserService.getInstance().unfollowUser(user, targetUser);
@@ -321,7 +321,7 @@ public class ListController implements Initializable {
     }
 
 
-    //Show feed post
+    //Show feed's post
     public void show_post(ActionEvent event11) throws IOException {
 
         postController.getPost();
@@ -330,7 +330,7 @@ public class ListController implements Initializable {
     }
 
 
-    //Show group feed post
+    //Show group feed's post
     public void show_post_group(ActionEvent event11) throws IOException {
 
         postController.get_group_post();
@@ -340,7 +340,7 @@ public class ListController implements Initializable {
     }
 
 
-    //Show group feed post
+    //Show currentUser feed's post
     public void show_post_profile(ActionEvent event11) throws IOException {
 
         postController.get_profile_post();
@@ -422,7 +422,7 @@ public class ListController implements Initializable {
         }
     }
 
-
+    //Function that uses GroupService to join group
     public void join_group(ActionEvent event) throws IOException {
 
         try {
@@ -439,7 +439,7 @@ public class ListController implements Initializable {
         }
     }
 
-
+    //Function that uses GroupService to join group
     public void leave_group(ActionEvent event) throws IOException {
         try {
             GroupService.getInstance().leaveGroup(user, SearchController.targetgroup);
