@@ -33,8 +33,66 @@ import java.util.ResourceBundle;
 import static com.ConnectASU.ScreensController.currentUser;
 
 public class ListController implements Initializable {
+    Stage stage, stage8, stage9, stage10, stage11, stage12, stage15, stage16, stage17, stage19;
+    Scene scene, scene8, scene9, scene10, scene11, scene12, scene15, scene16, scene17;
+    Parent root, root8, root9, root10, root11, root12, root15, root16, root17;
+
+
+    static Post group_post_feed;
+    static Post profile_post;
     static User user = currentUser;
-    public ScreensController screensController;
+    static User targetUser;
+    static Group group;
+    static Post post_feed;
+
+
+    @FXML
+    TableView<Post> profile_table = new TableView<>();
+    @FXML
+    TableColumn<Post, String> posts_feed = new TableColumn<>("C1");
+    @FXML
+    TableView<Post> feed_table;
+    @FXML
+    TableColumn<Post, String> feed_post;
+    @FXML
+    TableView<Post> group_post_table;
+    @FXML
+    TableColumn<Post, String> group_post_column;
+    @FXML
+    TableView<User> user_membersTable;
+    @FXML
+    TableColumn<User, String> user_membersColumn;
+    @FXML
+    Button follow_B;
+    @FXML
+    private AnchorPane profile_pane;
+    @FXML
+    TableView<Post> profile_table_target;
+    @FXML
+    TableColumn<Post, String> posts_feed_target;
+    @FXML
+    Button create_post_Button;
+    @FXML
+    Button join_Button;
+    @FXML
+    AnchorPane Group_pane;
+
+
+    ArrayList<Post> posts = new ArrayList<>();
+    ArrayList<Post> feed_posts;
+    ArrayList<Post> posts_group;
+    ArrayList<User> members_users;
+    ArrayList<Post> profile_post_array;
+    ArrayList<User> members_exist;
+    ObservableList<Post> postList;
+    ObservableList<Post> f_posts;
+    ObservableList<Post> group_post_list;
+    ObservableList<User> members_user_list;
+    ObservableList<Post> profile_post_list;
+
+
+    PostController postController = new PostController();
+
 
     public static void getUser() {
         user = currentUser;
@@ -43,28 +101,22 @@ public class ListController implements Initializable {
         System.out.println(user.getName());
 
     }
-   public ListController(){
+
+
+    public ListController() {
 
     }
 
-    static User targetUser;
-    static Group group;
 
     public static void getTargetGroup() {
         group = SearchController.targetgroup;
     }
 
+
     public static void getTargetUser() {
         targetUser = SearchController.targetUser;
 
     }
-
-    Stage stage, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10,
-            stage11, stage12, stage13, stage14, stage15, stage16, stage17, stage18, stage19, stage20;
-    Scene scene, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10,
-            scene11, scene12, scene13, scene14, scene15, scene16, scene17, scene18, scene19, scene20;
-    Parent root, root2, root3, root4, root5, root6, root7, root8, root9, root10,
-            root11, root12, root13, root14, root15, root16, root17, root18, root19, root20;
 
 
     //Feed to Create Post
@@ -76,6 +128,8 @@ public class ListController implements Initializable {
         stage10.setScene(scene10);
         stage10.show();
     }
+
+
     public void feed_to_createPost_Feed(@NotNull ActionEvent event5) throws IOException {
         root10 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("createpost.fxml")));
         stage10 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
@@ -84,6 +138,8 @@ public class ListController implements Initializable {
         stage10.setScene(scene10);
         stage10.show();
     }
+
+
     //Feed to search
     public void feed_to_search(@NotNull ActionEvent event5) throws IOException {
         root9 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("search_page.fxml")));
@@ -94,6 +150,7 @@ public class ListController implements Initializable {
         stage9.show();
     }
 
+
     public void feed_to_profile(@NotNull ActionEvent event4) throws IOException {
 
         root8 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("my_profile.fxml")));
@@ -102,8 +159,8 @@ public class ListController implements Initializable {
         scene8 = new Scene(root8);
         stage8.setScene(scene8);
         stage8.show();
-
     }
+
 
     //Feed to Groups' Feed
     public void feed_to_Groups(@NotNull ActionEvent event5) throws IOException {
@@ -113,39 +170,10 @@ public class ListController implements Initializable {
         scene11 = new Scene(root11);
         stage11.setScene(scene11);
         stage11.show();
-
     }
-    //Current_user post feed
 
-    @FXML
-    TableView<Post> profile_table = new TableView<>();
-    @FXML
-    TableColumn<Post, String> posts_feed = new TableColumn<>("C1");
-
-
-    ArrayList<Post> posts = new ArrayList<>();
-
-    static Post post_feed;
-    ObservableList<Post> postList;
-///
 
     //Feed Posts
-    @FXML
-    TableView<Post> feed_table;
-    @FXML
-    TableColumn<Post, String> feed_post;
-
-    ObservableList<Post> f_posts;
-    ArrayList<Post> feed_posts;
-    ArrayList<Post> posts_group;
-    ObservableList<Post> group_post_list;
-    @FXML
-    TableView<Post> group_post_table;
-    @FXML
-    TableColumn<Post, String> group_post_column;
-    static Post group_post_feed;
-    static Post profile_post;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         /////////////////////////////////////////////////////////////////////////////
@@ -169,7 +197,7 @@ public class ListController implements Initializable {
 
         posts_feed.setCellValueFactory(new PropertyValueFactory<Post, String>("content"));
         profile_table.setItems(postList);
-/////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////
         //General Feed//
         try {
             feed_posts = PostService.getInstance().getUserFeed(currentUser);
@@ -188,8 +216,7 @@ public class ListController implements Initializable {
             feed_table.setItems(f_posts);
             feed_post.setCellValueFactory(new PropertyValueFactory<>("content"));
         }
-        //////////////////////////////////////////////////////////////////////////////////
-//
+        ////////////////////////////////////////////////////////////////////////////////////
         try {
             posts_group = PostService.getInstance().getGroupPosts(SearchController.targetgroup);
         } catch (CannotGetGroupPostsException e) {
@@ -215,25 +242,10 @@ public class ListController implements Initializable {
         } else {
             System.out.println("No group posts available.");
         }
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
     }
 
-    @FXML
-    TableView<User> user_membersTable;
-    @FXML
-    TableColumn<User, String> user_membersColumn;
-
-    ObservableList<User> members_user_list;
-    ArrayList<User> members_users;
 
     public void show_members(ActionEvent event) throws IOException {
-
-
         try {
             members_users = new ArrayList<>(GroupService.getInstance().getGroupMembers(group));
         } catch (CannotGetMembersException e) {
@@ -254,98 +266,43 @@ public class ListController implements Initializable {
         } else {
             System.out.println("No group members available for group " + group);
         }
-
     }
+
     public void show_target_profile_followers(ActionEvent event) throws IOException {
-        System.out.println(targetUser.getName()+"here in show posts ");
+        System.out.println(targetUser.getName() + "here in show posts ");
         try {
-            profile_post_array=PostService.getInstance().getUserPosts(SearchController.targetUser);
+            profile_post_array = PostService.getInstance().getUserPosts(SearchController.targetUser);
         } catch (CannotGetUserPostsException e) {
             System.out.println("can't get User post");
         }
 
-        if (profile_post_array != null){
-            profile_post_list= FXCollections.observableArrayList(profile_post_array);
-            }
+        if (profile_post_array != null) {
+            profile_post_list = FXCollections.observableArrayList(profile_post_array);
+        }
 
         posts_feed_target.setCellValueFactory(new PropertyValueFactory<Post, String>("content"));
         profile_table_target.setItems(profile_post_list);
     }
 
 
-    //PostController postController;
-    @FXML
-    Button follow_B;
-//    ArrayList<User> followers;
-
-@FXML
-TableView<Post> profile_table_target;
-@FXML
-TableColumn<Post ,String> posts_feed_target;
-ObservableList<Post>  profile_post_list;
-ArrayList<Post> profile_post_array;
-
     public void follow(ActionEvent event) throws IOException {
         String follow = follow_B.getText();
         System.out.println(follow);
-//        try {
-//            followers = UserService.getInstance().getUserFollowers(user);
-//        } catch (CannotGetFollowersException e) {
-//            System.out.println("kefaya b2a");
-//        }
-
-
         try {
             UserService.getInstance().followUser(user, targetUser);
             follow_B.setText("Following");
-//            try {
-//                profile_post_array=PostService.getInstance().getUserPosts(SearchController.targetUser);
-//            } catch (CannotGetUserPostsException e) {
-//                System.out.println("can't get User post");
-//            }
-//
-//        if (profile_post_array != null){
-//            profile_post_list= FXCollections.observableArrayList(profile_post_array);
-//            }
-//            profile_table_target.setItems(profile_post_list);
-//            posts_feed_target.setCellValueFactory(new PropertyValueFactory<Post, String>("Name"));
-
             targetUser = null;
-
-
         } catch (FailedFollowException e) {
-
             root12 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("failed_to_follow.fxml")));
             stage12 = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage12.setTitle("Failed");
             scene12 = new Scene(root12);
             stage12.setScene(scene12);
             stage12.show();
-
-
         }
-
-
-
-//        try {
-//            UserService.getInstance().unfollowUser(user, targetUser);
-//            follow_B.setText("Follow");
-//            targetUser = null;
-//        } catch (FailedUnfollowException e) {
-//            try {
-//                root12 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("failed_to_unfollow.fxml")));
-//            } catch (IOException ex) {
-//                stage12 = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                stage12.setTitle("Failed");
-//                scene12 = new Scene(root12);
-//                stage12.setScene(scene12);
-//                stage12.show();
-//            }
-//        }
-
-
     }
-    public void unfollow(ActionEvent event){
+
+    public void unfollow(ActionEvent event) {
         try {
             UserService.getInstance().unfollowUser(user, targetUser);
             follow_B.setText("Unfollowed");
@@ -363,7 +320,6 @@ ArrayList<Post> profile_post_array;
         }
     }
 
-    PostController postController = new PostController();
 
     //Show feed post
     public void show_post(ActionEvent event11) throws IOException {
@@ -371,8 +327,8 @@ ArrayList<Post> profile_post_array;
         postController.getPost();
         postController.getUser();
         postController.show_post_2(event11);
-
     }
+
 
     //Show group feed post
     public void show_post_group(ActionEvent event11) throws IOException {
@@ -381,8 +337,8 @@ ArrayList<Post> profile_post_array;
         postController.getUser();
         postController.getGroup();
         postController.show_post_3(event11);
-
     }
+
 
     //Show group feed post
     public void show_post_profile(ActionEvent event11) throws IOException {
@@ -390,8 +346,6 @@ ArrayList<Post> profile_post_array;
         postController.get_profile_post();
         postController.getUser();
         postController.show_post_4(event11);
-
-
     }
 
 
@@ -404,10 +358,6 @@ ArrayList<Post> profile_post_array;
         stage17.show();
     }
 
-    @FXML
-    private Button delete_account_button;
-    @FXML
-    private AnchorPane profile_pane;
 
     public void delete__logout(ActionEvent event10) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -418,9 +368,8 @@ ArrayList<Post> profile_post_array;
             UserService.getInstance().deleteAccount(currentUser);
             stage19.close();
         }
-
-
     }
+
 
     public void back_to_group_feed(@NotNull ActionEvent event5) throws IOException {
         root15 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("Group_feed.fxml")));
@@ -431,6 +380,7 @@ ArrayList<Post> profile_post_array;
         stage15.show();
     }
 
+
     public void return_to_feed(@NotNull ActionEvent event5) throws IOException {
         root12 = FXMLLoader.load(Objects.requireNonNull(ListController.class.getResource("Feed.fxml")));
         stage12 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
@@ -439,6 +389,7 @@ ArrayList<Post> profile_post_array;
         stage12.setScene(scene12);
         stage12.show();
     }
+
 
     public void my_profile_to_create_Group(@NotNull ActionEvent event5) throws IOException {
 
@@ -450,7 +401,6 @@ ArrayList<Post> profile_post_array;
         stage16.show();
     }
 
-    ArrayList<User> members_exist;
 
     public void group_to_create_post(@NotNull ActionEvent event5) throws IOException {
         try {
@@ -472,10 +422,6 @@ ArrayList<Post> profile_post_array;
         }
     }
 
-    @FXML
-    Button create_post_Button;
-    @FXML
-    Button join_Button;
 
     public void join_group(ActionEvent event) throws IOException {
 
@@ -491,11 +437,10 @@ ArrayList<Post> profile_post_array;
             stage.setScene(scene);
             stage.show();
         }
-
     }
 
-    public void leave_group(ActionEvent event) throws IOException {
 
+    public void leave_group(ActionEvent event) throws IOException {
         try {
             GroupService.getInstance().leaveGroup(user, SearchController.targetgroup);
         } catch (CannotLeaveGroupException e) {
@@ -508,8 +453,6 @@ ArrayList<Post> profile_post_array;
         }
     }
 
-    @FXML
-    AnchorPane Group_pane;
 
     public void delete_group(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
