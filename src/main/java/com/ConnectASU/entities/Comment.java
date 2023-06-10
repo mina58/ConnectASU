@@ -25,7 +25,7 @@ public class Comment {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
+        if (obj == null) {
             return false;
         }
         if (obj.getClass() != this.getClass()) {
