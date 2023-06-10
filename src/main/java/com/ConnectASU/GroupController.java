@@ -1,7 +1,6 @@
 package com.ConnectASU;
 
 import com.ConnectASU.Service.GroupService;
-import com.ConnectASU.Service.PostService;
 import com.ConnectASU.Service.UserService;
 import com.ConnectASU.entities.Group;
 import com.ConnectASU.entities.User;
@@ -57,25 +56,21 @@ public class GroupController implements Initializable {
     ArrayList<User> followers;
 
 
-    PostService postService = PostService.getInstance();
-
-
     public GroupController() {
     }
 
-
+    //Get the targetGroup from search in static Group
     public static void getGroup() {
         group = SearchController.targetgroup;
     }
 
-
+    //Function to get the currentUser
     public static void getUser() {
         user = ScreensController.currentUser;
-
         System.out.println(user.getName());
     }
 
-
+    //Function to return to currentUser profile
     public void back_to_profile(ActionEvent event5) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("my_profile.fxml")));
         stage = (Stage) ((Node) event5.getSource()).getScene().getWindow();
@@ -85,7 +80,7 @@ public class GroupController implements Initializable {
         stage.show();
     }
 
-
+    //Initialize function that initialize the currentUser's followers list
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //followers-list table view
@@ -134,7 +129,7 @@ public class GroupController implements Initializable {
         stage1.show();
     }
 
-
+    //Return to targetGroup feed
     public void back_to_group_feed(ActionEvent event5) throws IOException {
         root1 = FXMLLoader.load(Objects.requireNonNull(GroupController.class.getResource("Group_feed.fxml")));
         stage1 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
@@ -156,6 +151,7 @@ public class GroupController implements Initializable {
         }
     }
 
+    //Return to General feed
     public void return_to_feed(@NotNull ActionEvent event5) throws IOException {
         root12 = FXMLLoader.load(Objects.requireNonNull(GroupController.class.getResource("Feed.fxml")));
         stage12 = (Stage) ((Node) event5.getSource()).getScene().getWindow();

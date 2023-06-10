@@ -66,32 +66,32 @@ public class PostController implements Initializable {
     public PostController() {
     }
 
-
+    //To get post from general feed
     public void getPost() {
         post = ListController.post_feed;
     }
 
-
+    //To get post from currentUser feed
     public void get_profile_post() {
         profile_post = ListController.profile_post;
     }
 
-
+    //To get post from targetGroup feed
     public void get_group_post() {
         group_post = ListController.group_post_feed;
     }
 
-
+    //To get currentUser
     public void getUser() {
         user = ScreensController.currentUser;
     }
 
-
+    //To get targetGroup
     public void getGroup() {
         group = SearchController.targetgroup;
     }
 
-
+    //Show feed's post
     public void show_post_2(ActionEvent event) throws IOException {
         root13 = FXMLLoader.load((Objects.requireNonNull(PostController.class.getResource("post.fxml"))));
 
@@ -115,7 +115,7 @@ public class PostController implements Initializable {
         System.out.println(post.getContent());
     }
 
-
+    //Show group feed's post
     public void show_post_3(ActionEvent event) throws IOException {
         root14 = FXMLLoader.load((Objects.requireNonNull(PostController.class.getResource("Group_post.fxml"))));
 
@@ -139,7 +139,7 @@ public class PostController implements Initializable {
         System.out.println(group_post.getContent());
     }
 
-
+    //Show currentUser feed's post  from currentUser profile
     public void show_post_4(ActionEvent event) throws IOException {
         root11 = FXMLLoader.load((Objects.requireNonNull(PostController.class.getResource("Profile_Post.fxml"))));
 
@@ -163,7 +163,7 @@ public class PostController implements Initializable {
     }
 
 
-    // CommentService commentService = CommentService.getInstance();
+    //Function that uses PostService to like feed post
     public void like_post(ActionEvent event) {
         try {
 
@@ -177,7 +177,7 @@ public class PostController implements Initializable {
 
     }
 
-
+    //Function that uses PostService to like currentUser's post
     public void like_profile_post(ActionEvent event) {
         try {
 
@@ -190,7 +190,7 @@ public class PostController implements Initializable {
         }
     }
 
-
+    //Function that uses PostService to like group feed's post
     public void like_group_post(ActionEvent event) {
         try {
 
@@ -213,7 +213,7 @@ public class PostController implements Initializable {
         stage11.show();
     }
 
-
+    //Function that uses PostService to add comment to feed post
     public void comment_post(ActionEvent event) throws IOException {
 
         comment = comment_text_area.getText();
@@ -226,7 +226,7 @@ public class PostController implements Initializable {
         screensController.return_to_feed(event);
     }
 
-
+    //Function that uses PostService to add comment to currentUser post
     public void comment_profile_post() {
         comment = comment_text_area.getText();
         System.out.println(comment);
@@ -237,7 +237,7 @@ public class PostController implements Initializable {
         }
     }
 
-
+    //Function that uses PostService to add comment to targetGroup post
     public void comment_group_post() {
         comment = comment_text_area.getText();
         System.out.println(comment);
@@ -261,11 +261,12 @@ public class PostController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ////////////////////////////////////////////////////////////////////////////////////
+        //Comment Table for general feed post//
         try {
             comments_array = CommentService.getInstance().getPostComments(post);
         } catch (CannotGetCommentsException e) {
             System.out.println("Failed to retrieve comments for this post");
-            //comments_array = new ArrayList<>();
         }
 
         if (comments_array != null) {
@@ -278,13 +279,13 @@ public class PostController implements Initializable {
 
         comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
-
+        ////////////////////////////////////////////////////////////////////////////////////
+        //Comment Table for currentUser post//
         try {
             comments_array = CommentService.getInstance().getPostComments(profile_post);
         } catch (CannotGetCommentsException e) {
             System.out.println("Failed to retrieve comments for this post");
-            //comments_array = new ArrayList<>();
+
         }
 
         if (comments_array != null) {
@@ -297,13 +298,14 @@ public class PostController implements Initializable {
 
         comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////
+        //Comment Table for targetGroup post//
 
         try {
             comments_array = CommentService.getInstance().getPostComments(group_post);
         } catch (CannotGetCommentsException e) {
             System.out.println("Failed to retrieve comments for this post");
-            //comments_array = new ArrayList<>();
+
         }
 
         if (comments_array != null) {
@@ -315,7 +317,7 @@ public class PostController implements Initializable {
         }
 
         comments_column.setCellValueFactory(new PropertyValueFactory<Comment, String>("Content"));
-        ////////////////////////////////////////////////////////////////////////////////////////////
+
     }
 
 

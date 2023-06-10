@@ -56,7 +56,7 @@ public class ScreensController {
     //Switching between screens
     //In login to sign up
     public void login_to_signin(@NotNull ActionEvent event1) throws IOException {
-        root = FXMLLoader.load(ScreensController.class.getResource("sign_in.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("sign_in.fxml")));
         stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
         stage.setTitle("Sign Up");
         scene = new Scene(root);
@@ -79,13 +79,8 @@ public class ScreensController {
             //Show Successful Sign Up and addition in Database
             successful_signUp(event2);
 
-        } catch (InvalidEmailException exception) {
+        } catch (InvalidEmailException | InvalidPasswordException | InvalidUserNameException exception) {
             invalid_signin(event2);
-        } catch (InvalidPasswordException exception) {
-            invalid_signin(event2);
-        } catch (InvalidUserNameException exception) {
-            invalid_signin(event2);
-
         }
 
         root2 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("log_in.fxml")));
@@ -193,11 +188,13 @@ public class ScreensController {
     //Feed to search
     public void feed_to_search(@NotNull ActionEvent event5) throws IOException {
         root9 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("search_page.fxml")));
+
         stage9 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage9.setTitle("Search");
         scene9 = new Scene(root9);
         stage9.setScene(scene9);
         stage9.show();
+
     }
 
 
@@ -242,8 +239,7 @@ public class ScreensController {
 
     //Group to create group
     public void go_to_create_group(@NotNull ActionEvent event8) throws IOException {
-
-        root13 = FXMLLoader.load(ScreensController.class.getResource("create_group.fxml"));
+        root13 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("create_group.fxml")));
         stage13 = (Stage) ((Node) event8.getSource()).getScene().getWindow();
         stage13.setTitle("Create Group");
         scene13 = new Scene(root13);
@@ -254,7 +250,6 @@ public class ScreensController {
 
     //group feed to create group post
     public void group_to_create_post(@NotNull ActionEvent event5) throws IOException {
-
         root16 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("create_group_post.fxml")));
         stage16 = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage16.setTitle("Group");
