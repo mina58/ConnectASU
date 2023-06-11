@@ -43,23 +43,23 @@ public class CreateController {
 
     public CreateController() {
         ScreensController screensController = new ScreensController();
-        // User currentUser = screensController.return_CurrentUser();
+
     }
 
 
+    //Function to get group from search the targetUser
     public static void getGroup(Group target_group) {
         targetGroup = target_group;
     }
 
 
+    //Function to get the currentUser
     public static void getUser() {
         user = ScreensController.currentUser;
-        //To test that the user is available for this controller
-        // ScreensController.profile_name_label.setText(user.getName());
         System.out.println(user.getName());
     }
 
-
+    //Function uses GroupService instance to create group
     public void create_group(javafx.event.ActionEvent event11) throws IOException {
         System.out.println(currentUser.getName());
 
@@ -82,7 +82,7 @@ public class CreateController {
 
     }
 
-
+    //Function uses PostService instance to create post for the currentUser
     public void create_post_feed(ActionEvent event) throws IOException {
         String post;
         post = Create_post_feed.getText();
@@ -111,7 +111,7 @@ public class CreateController {
         stage1.show();
     }
 
-
+    //Back to general feed
     public void back_to_feed(javafx.event.ActionEvent event5) throws IOException {
         root1 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Feed.fxml")));
         stage1 = (Stage) ((Node) event5.getSource()).getScene().getWindow();

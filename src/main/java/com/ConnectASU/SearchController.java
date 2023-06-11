@@ -67,10 +67,9 @@ public class SearchController implements Initializable {
     ObservableList<User> userList;
     ObservableList<Group> groupList;
 
-
+    //Get currentUser
     public static void getUser() {
         currentUser = ScreensController.currentUser;
-
     }
 
 
@@ -83,7 +82,7 @@ public class SearchController implements Initializable {
         stage12.show();
     }
 
-
+    //Function uses SearchService to get result of search and initialize the users' table and groups' table
     public void search(ActionEvent event) {
         String search = search_text_area.getText();
         try {
@@ -141,6 +140,7 @@ public class SearchController implements Initializable {
     }
 
 
+    //Function that uses PostService to create targetGroup post
     public void create_group_post(ActionEvent event1) throws IOException {
         post_text = create_post_group.getText();
 
@@ -149,6 +149,7 @@ public class SearchController implements Initializable {
         try {
             postService.createPost(post_text, currentUser, targetgroup);
             root = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
+
             stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
             stage.setTitle(targetgroup.getName() + "'s Feed");
             scene = new Scene(root);
@@ -168,6 +169,7 @@ public class SearchController implements Initializable {
 
     public void back_to_group_feed(javafx.event.ActionEvent event5) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Group_feed.fxml")));
+
         stage = (Stage) ((Node) event5.getSource()).getScene().getWindow();
         stage.setTitle(targetgroup.getName() + "'s Feed");
 
@@ -176,7 +178,7 @@ public class SearchController implements Initializable {
         stage.show();
     }
 
-
+    //Gets the targetUser from search
     public void search_to_person_profile(ActionEvent event) throws IOException {
         root12 = FXMLLoader.load(Objects.requireNonNull(ScreensController.class.getResource("Profile_person.fxml")));
         stage12 = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -188,14 +190,12 @@ public class SearchController implements Initializable {
         stage12.show();
     }
 
-
+    //Gets the targetGroup from search
     public void search_to_group(ActionEvent event) throws IOException {
         root12 = FXMLLoader.load(Objects.requireNonNull(SearchController.class.getResource("Group_feed.fxml")));
         stage12 = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage12.setTitle(targetgroup.getName() + "'s Feed");
-        // System.out.println(targetgroup.getName()+"1");
         GroupController.getGroup();
-
         scene12 = new Scene(root12);
         stage12.setScene(scene12);
         stage12.show();
