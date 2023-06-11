@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutX="18.0" layoutY="58.0" prefHeight="87.0" prefWidth="339.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Label layoutX="101.0" layoutY="10.0" prefHeight="67.0" prefWidth="224.0" text="Repeated Group Name" textAlignment="CENTER">
+            <Label layoutX="101.0" layoutY="10.0" prefHeight="67.0" prefWidth="224.0" text="Invalid Group Name" textAlignment="CENTER">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
