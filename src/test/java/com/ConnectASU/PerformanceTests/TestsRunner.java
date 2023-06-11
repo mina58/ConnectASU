@@ -40,12 +40,8 @@ public class TestsRunner {
     public void teardown() {
         executor.shutdown();
         try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Thread.sleep(10);
+            Thread.sleep(350);
+            DBClearer.clearDB();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
